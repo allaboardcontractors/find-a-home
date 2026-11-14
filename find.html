@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find a Home | Shante Kelley, Realtor</title>
+<meta name="description" content="Tell Shante Kelley the home you need. Home finder form and her private list of homes for sale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=14">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <div>
+      <p class="site-name">Shante Kelley, Realtor, Sales Agent</p>
+      <p class="site-broker">Texas Signature Realty</p>
+      <p class="site-area">Rosharon &amp; South Houston</p>
+    </div>
+    <div class="header-contact">
+      <a href="tel:+18322720861">Call or text 832-272-0861</a>
+      <a href="mailto:info@shantekelleyrealty.com">info@shantekelleyrealty.com</a>
+      <a href="https://shantekelleyrealty.com">shantekelleyrealty.com</a>
+    </div>
+  </div>
+  <nav class="topnav" aria-label="Pages">
+    <div class="wrap nav-inner">
+      <a href="index.html">Home</a>
+      <a href="find.html">Find a Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="market.html">Market Updates</a>
+      <a href="book.html">Book a Time</a>
+      <a href="account.html">Create an Account</a>
+      <a href="contact.html">Get in Touch</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section id="finder" class="section">
+    <div class="wrap">
+      <p class="section-label">Tool 1</p>
+      <h2>What are you looking for?</h2>
+      <p>Fill in what you can. Your search brief updates as you type, and nothing you enter is saved anywhere. It only goes to Shante when you choose to email it, text it, or copy it.</p>
+      <div class="finder-grid">
+        <form id="finderForm" name="home-search-brief" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="home-search-brief">
+          <p hidden><label>Do not fill this out: <input name="bot-field"></label></p>
+          <div class="field">
+            <label for="fName">Your name</label>
+            <input id="fName" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="fPhone">Phone number</label>
+            <input id="fPhone" name="phone" type="tel" autocomplete="tel" required>
+            <p class="hint">Needed for the private search link.</p>
+          </div>
+          <div class="field">
+            <label for="fEmail">Email</label>
+            <input id="fEmail" name="email" type="email" autocomplete="email" required>
+            <p class="hint">This is where homes are sent.</p>
+          </div>
+          <fieldset class="field">
+            <legend>Looking to</legend>
+            <div class="pills" id="goalPills">
+              <button type="button" data-goal="Rent" class="pill active" aria-pressed="true">Rent</button>
+              <button type="button" data-goal="Buy" class="pill" aria-pressed="false">Buy</button>
+              <button type="button" data-goal="Buy with owner financing" class="pill" aria-pressed="false">Buy with owner financing</button>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="fBudget">Budget</label>
+            <select id="fBudget" name="budget"></select>
+          </div>
+          <div class="field">
+            <label for="fMove">Move date</label>
+            <input id="fMove" name="moveDate" type="date">
+          </div>
+          <fieldset class="field">
+            <legend>Bedrooms</legend>
+            <div class="pills" id="bedPills">
+              <button type="button" data-value="1" class="pill">1</button>
+              <button type="button" data-value="2" class="pill">2</button>
+              <button type="button" data-value="3" class="pill active" aria-pressed="true">3</button>
+              <button type="button" data-value="4" class="pill">4</button>
+              <button type="button" data-value="5+" class="pill">5+</button>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Bathrooms</legend>
+            <div class="pills" id="bathPills">
+              <button type="button" data-value="1" class="pill">1</button>
+              <button type="button" data-value="2" class="pill active" aria-pressed="true">2</button>
+              <button type="button" data-value="3" class="pill">3</button>
+              <button type="button" data-value="4+" class="pill">4+</button>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Areas</legend>
+            <div class="checks" id="areaChecks"></div>
+          </fieldset>
+          <div class="field">
+            <label for="fPets">Pets</label>
+            <select id="fPets" name="pets">
+              <option>No pets</option>
+              <option>Dog(s)</option>
+              <option>Cat(s)</option>
+              <option>Dogs and cats</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fPetDetails">Pet details</label>
+            <input id="fPetDetails" name="petDetails" type="text" placeholder="Kind, size, and how many">
+          </div>
+          <fieldset class="field">
+            <legend>Must haves</legend>
+            <div class="checks" id="mustChecks"></div>
+          </fieldset>
+          <div class="field">
+            <label for="fNotes">Notes</label>
+            <textarea id="fNotes" name="notes" rows="4" placeholder="Anything else that matters to you"></textarea>
+          </div>
+          <p class="error" id="finderError" role="alert" hidden>Please add your name, phone number, and a valid email. Shante needs all three before she can start your search.</p>
+          <p class="brief-actions">
+            <button class="button" id="sendBrief" type="submit">Send my search to Shante</button>
+          </p>
+          <p id="briefSent" class="hint" hidden>Sent. Shante has your search, and your account details are saved with it.</p>
+        </form>
+        <aside class="brief" aria-label="Your search brief">
+          <h3>Your search brief</h3>
+          <p class="hint">This is exactly what Shante receives.</p>
+          <dl id="briefList">
+            <dt>Looking to</dt><dd id="briefGoal">Rent</dd>
+            <dt>Budget</dt><dd id="briefBudget">Not sure yet</dd>
+            <dt>Bedrooms and baths</dt><dd id="briefBeds">3 bed, 2 bath</dd>
+            <dt>Areas</dt><dd id="briefAreas">Not chosen yet</dd>
+            <dt>Move date</dt><dd id="briefMove">Not chosen yet</dd>
+            <dt>Pets</dt><dd id="briefPets">No pets</dd>
+            <dt>Must haves</dt><dd id="briefMust">None chosen yet</dd>
+          </dl>
+          <p id="briefNotes" class="brief-notes" hidden></p>
+          <p class="brief-actions">
+            <a class="button" id="emailBrief" href="mailto:info@shantekelleyrealty.com?subject=Home%20search%20brief">Email my brief to Shante</a>
+            <a class="button button-light" id="textBrief" href="sms:+18322720861">Text my brief to Shante</a>
+            <button class="button button-light" id="copyBrief" type="button">Copy my brief</button>
+          </p>
+          <p class="hint" id="copyNote" hidden>Copied. Paste it anywhere to send it.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+<section id="homes" class="section">
+    <div class="wrap">
+      <p class="section-label">Tool 2</p>
+      <h2>Homes for sale: Shante's private list</h2>
+      <p><strong>This list is not linked from the rest of the page.</strong> Shante sends the direct link to this list only after she has your phone number, has contacted you at least once, and you have replied.</p>
+      <p>Homes for sale only. No rentals on this list. Availability and price to be confirmed with Shante. This list is curated by Shante, not a live MLS feed.</p>
+      <div class="filters">
+        <label>Max price
+          <select id="filterPrice">
+            <option value="">Any</option>
+            <option value="250000">$250,000</option>
+            <option value="300000">$300,000</option>
+            <option value="350000">$350,000</option>
+            <option value="400000">$400,000</option>
+            <option value="500000">$500,000</option>
+          </select>
+        </label>
+        <label>Min bedrooms
+          <select id="filterBeds">
+            <option value="">Any</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+          </select>
+        </label>
+        <label>City or area
+          <input id="filterCity" type="text" placeholder="Type a city or area">
+        </label>
+      </div>
+      <div class="home-cards" id="homeCards"></div>
+      <p id="noHomes" hidden>No homes on the list match that search. Use the Find a Home form above so Shante can look for one.</p>
+    </div>
+  </section>
+</main>
+
+<footer id="contact" class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p class="footer-name">Shante Kelley, Realtor, Sales Agent, Texas Signature Realty</p>
+      <p>Certified in owner financing</p>
+      <p>Houston, Texas</p>
+    </div>
+    <div class="footer-contact">
+      <a href="tel:+18322720861">Call or text 832-272-0861</a>
+      <a href="mailto:info@shantekelleyrealty.com">Email info@shantekelleyrealty.com</a>
+      <a href="https://shantekelleyrealty.com">Web shantekelleyrealty.com</a>
+    </div>
+  </div>
+  <div class="wrap fine-print">
+    <p>This search is curated by Shante, not a live MLS feed. A true live MLS feed needs a paid IDX feed and MLS approval. Availability, price, and pet policy are confirmed with the listing side first.</p>
+    <p class="trec-links">
+      <a href="assets/iabs-shante-kelley.pdf">Texas Real Estate Commission Information About Brokerage Services</a>
+      <a href="https://www.trec.texas.gov/sites/default/files/pdf-forms/CN%201-5_0.pdf">Texas Real Estate Commission Consumer Protection Notice</a>
+    </p>
+  </div>
+</footer>
+
+<script src="app.js?v=15"></script>
+</body>
+</html>

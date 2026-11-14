@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get in Touch | Shante Kelley, Realtor</title>
+<meta name="description" content="Get in touch with Shante Kelley, Realtor, Texas Signature Realty. Call, text, or email.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=14">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <div>
+      <p class="site-name">Shante Kelley, Realtor, Sales Agent</p>
+      <p class="site-broker">Texas Signature Realty</p>
+      <p class="site-area">Rosharon &amp; South Houston</p>
+    </div>
+    <div class="header-contact">
+      <a href="tel:+18322720861">Call or text 832-272-0861</a>
+      <a href="mailto:info@shantekelleyrealty.com">info@shantekelleyrealty.com</a>
+      <a href="https://shantekelleyrealty.com">shantekelleyrealty.com</a>
+    </div>
+  </div>
+  <nav class="topnav" aria-label="Pages">
+    <div class="wrap nav-inner">
+      <a href="index.html">Home</a>
+      <a href="find.html">Find a Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="market.html">Market Updates</a>
+      <a href="book.html">Book a Time</a>
+      <a href="account.html">Create an Account</a>
+      <a href="contact.html">Get in Touch</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="section-label">Get in Touch</p>
+      <h2>Get in touch with Shante</h2>
+      <p>Call, text, or email. She replies the same day, or next morning at the latest.</p>
+      <p><a class="button" href="tel:+18322720861">Call or text 832-272-0861</a></p>
+      <p><a class="button button-light" href="mailto:info@shantekelleyrealty.com">Email info@shantekelleyrealty.com</a></p>
+      <p>Shante Kelley, Realtor, Sales Agent, Texas Signature Realty. Certified in owner financing. Houston, Texas.</p>
+      <form id="contactForm" name="contact-message" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="contact-message">
+        <p hidden><label>Do not fill this out: <input name="bot-field"></label></p>
+        <div class="field">
+          <label for="cName">Your name</label>
+          <input id="cName" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="cPhone">Phone number</label>
+          <input id="cPhone" name="phone" type="tel" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="cEmail">Email</label>
+          <input id="cEmail" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="cMsg">Your message</label>
+          <textarea id="cMsg" name="message" rows="4" placeholder="What can Shante help you with?"></textarea>
+        </div>
+        <p class="error" id="contactError" role="alert" hidden>Please add your name and a valid email.</p>
+        <p class="brief-actions">
+          <button class="button" id="sendContact" type="submit">Send my message</button>
+          <a class="button button-light" id="emailContact" href="mailto:info@shantekelleyrealty.com?subject=Message%20for%20Shante">Email my message to Shante</a>
+          <a class="button button-light" id="textContact" href="sms:+18322720861">Text my message to Shante</a>
+        </p>
+        <p id="contactSent" class="hint" hidden>Sent. Shante has your message.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact" class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p class="footer-name">Shante Kelley, Realtor, Sales Agent, Texas Signature Realty</p>
+      <p>Certified in owner financing</p>
+      <p>Houston, Texas</p>
+    </div>
+    <div class="footer-contact">
+      <a href="tel:+18322720861">Call or text 832-272-0861</a>
+      <a href="mailto:info@shantekelleyrealty.com">Email info@shantekelleyrealty.com</a>
+      <a href="https://shantekelleyrealty.com">Web shantekelleyrealty.com</a>
+    </div>
+  </div>
+  <div class="wrap fine-print">
+    <p>This search is curated by Shante, not a live MLS feed. A true live MLS feed needs a paid IDX feed and MLS approval. Availability, price, and pet policy are confirmed with the listing side first.</p>
+    <p class="trec-links">
+      <a href="assets/iabs-shante-kelley.pdf">Texas Real Estate Commission Information About Brokerage Services</a>
+      <a href="https://www.trec.texas.gov/sites/default/files/pdf-forms/CN%201-5_0.pdf">Texas Real Estate Commission Consumer Protection Notice</a>
+    </p>
+  </div>
+</footer>
+
+<script src="app.js?v=15"></script>
+</body>
+</html>
