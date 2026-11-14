@@ -1,0 +1,35 @@
+name: Extract site files
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unzip site archive
+        run: |
+          if [ ! -f find-a-home-code-cloudflare-2026-11-14.zip ]; then echo "No archive to extract."; exit 0; fi
+          mkdir -p /tmp/site
+          unzip -o find-a-home-code-cloudflare-2026-11-14.zip -d /tmp/site
+          rm -rf /tmp/site/__MACOSX
+          TOP=$(ls -1 /tmp/site)
+          COUNT=$(echo "$TOP" | wc -l)
+          if [ "$COUNT" = "1" ] && [ -d "/tmp/site/$TOP" ]; then
+            cp -a "/tmp/site/$TOP/." .
+          else
+            cp -a /tmp/site/. .
+          fi
+          rm -f find-a-home-code-cloudflare-2026-11-14.zip
+          rm -rf .github/workflows/extract-site.yml
+          ls -la
+      - name: Commit extracted files
+        run: |
+          git config user.name "allaboardcontractors"
+          git config user.email "shantekelley@allaboardcontractors.com"
+          git add -A
+          git status --short
+          git commit -m "Extract Find a Home site files" || exit 0
+          git push
