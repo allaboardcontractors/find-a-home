@@ -377,6 +377,10 @@
       var map = { fName: saved.firstName && saved.lastName ? saved.firstName + " " + saved.lastName : "", bName: saved.firstName && saved.lastName ? saved.firstName + " " + saved.lastName : "", cName: saved.firstName && saved.lastName ? saved.firstName + " " + saved.lastName : "", fPhone: saved.phone || "", bPhone: saved.phone || "", cPhone: saved.phone || "", fEmail: saved.email || "", bEmail: saved.email || "", cEmail: saved.email || "", aFirst: saved.firstName || "", aLast: saved.lastName || "", aEmail: saved.email || "", aPhone: saved.phone || "", aCity: saved.cityZip || "", aPrice: saved.maxPrice || "" };
       Object.keys(map).forEach(function (id) { var el = $(id); if (el && map[id] && !el.value) el.value = map[id]; });
       if ($("aGoal") && saved.goal) $("aGoal").value = saved.goal;
+      if (saved.goal) {
+        var goalBtn = document.querySelector('#goalPills button[data-goal="' + saved.goal + '"]');
+        if (goalBtn && !goalBtn.classList.contains("active")) goalBtn.click();
+      }
       if ($("accountSaved")) $("accountSaved").hidden = false;
     }
     var form = $("accountForm");
