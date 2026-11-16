@@ -140,6 +140,114 @@
   });
   }
 
+  /* Apply form (apply.html): full questionnaire with credit, income, rental history */
+  if ($("applyForm")) {
+  var applyGoal = "Rent";
+  var applyBeds = "3";
+  var applyBaths = "2";
+  var applyBudgetSelect = $("aBudget");
+  function fillApplyBudgets(list) {
+    applyBudgetSelect.innerHTML = "";
+    list.forEach(function (label) {
+      var opt = document.createElement("option");
+      opt.value = label; opt.textContent = label;
+      applyBudgetSelect.appendChild(opt);
+    });
+    applyBudgetSelect.value = "Not sure yet";
+  }
+  fillApplyBudgets(RENT_BUDGETS);
+  buildChecks("applyAreaChecks", AREAS, "applyArea");
+  buildChecks("applyMustChecks", MUSTS, "applyMust");
+  function applyCheckedValues(name) {
+    return Array.prototype.slice.call(document.querySelectorAll('input[name="' + name + '"]:checked')).map(function (c) { return c.value; });
+  }
+  function applyBriefText() {
+    var areas = applyCheckedValues("applyArea");
+    var musts = applyCheckedValues("applyMust");
+    var lines = [];
+    lines.push("Home search application for " + ($("aName").value.trim() || "[name not added yet]"));
+    lines.push("Looking to: " + applyGoal);
+    lines.push("Budget: " + applyBudgetSelect.value);
+    lines.push("Bedrooms: " + applyBeds + "  Bathrooms: " + applyBaths);
+    lines.push("Side of town: " + (areas.length ? areas.join(", ") : "Not chosen yet"));
+    lines.push("Move date: " + ($("aMove").value || "Not chosen yet"));
+    lines.push("Pets: " + $("aPets").value + ($("aPetDetails").value.trim() ? " (" + $("aPetDetails").value.trim() + ")" : ""));
+    lines.push("Credit score: " + ($("aCredit").value.trim() || "Not added yet"));
+    lines.push("Monthly income: " + ($("aIncome").value.trim() || "Not added yet"));
+    lines.push("Rental history: " + $("aHistory").value + ($("aHistoryDetail").value.trim() ? " (" + $("aHistoryDetail").value.trim() + ")" : ""));
+    lines.push("Must haves: " + (musts.length ? musts.join(", ") : "None chosen yet"));
+    if ($("aNotes").value.trim()) lines.push("Notes: " + $("aNotes").value.trim());
+    lines.push("Phone: " + ($("aPhone").value.trim() || "[phone not added yet]"));
+    lines.push("Email: " + ($("aEmail").value.trim() || "[email not added yet]"));
+    return lines.join("\n");
+  }
+  function updateApplyBrief() {
+    var areas = applyCheckedValues("applyArea");
+    var musts = applyCheckedValues("applyMust");
+    text($("applyBriefGoal"), applyGoal);
+    text($("applyBriefBudget"), applyBudgetSelect.value);
+    text($("applyBriefBeds"), applyBeds + " bed, " + applyBaths + " bath");
+    text($("applyBriefAreas"), areas.length ? areas.join(", ") : "Not chosen yet");
+    text($("applyBriefMove"), $("aMove").value || "Not chosen yet");
+    text($("applyBriefPets"), $("aPets").value + ($("aPetDetails").value.trim() ? " (" + $("aPetDetails").value.trim() + ")" : ""));
+    text($("applyBriefCredit"), $("aCredit").value.trim() || "Not added yet");
+    text($("applyBriefIncome"), $("aIncome").value.trim() || "Not added yet");
+    text($("applyBriefHistory"), $("aHistory").value + ($("aHistoryDetail").value.trim() ? " (" + $("aHistoryDetail").value.trim() + ")" : ""));
+    text($("applyBriefMust"), musts.length ? musts.join(", ") : "None chosen yet");
+    var notes = $("aNotes").value.trim();
+    $("applyBriefNotes").hidden = !notes;
+    if (notes) text($("applyBriefNotes"), "Notes: " + notes);
+    var body = encodeURIComponent(applyBriefText());
+    var subject = encodeURIComponent("Home search application" + ($("aName").value.trim() ? " for " + $("aName").value.trim() : ""));
+    $("emailApply").href = "mailto:" + EMAIL + "?subject=" + subject + "&body=" + body;
+  }
+  pillGroup("applyGoalPills", "data-goal", function (v) {
+    applyGoal = v;
+    fillApplyBudgets(v === "Rent" ? RENT_BUDGETS : BUY_BUDGETS);
+    updateApplyBrief();
+  });
+  pillGroup("applyBedPills", "data-value", function (v) { applyBeds = v; updateApplyBrief(); });
+  pillGroup("applyBathPills", "data-value", function (v) { applyBaths = v; updateApplyBrief(); });
+  ["aName", "aPhone", "aEmail", "aMove", "aPetDetails", "aCredit", "aIncome", "aHistoryDetail", "aNotes"].forEach(function (id) { on($(id), "input", updateApplyBrief); });
+  on(applyBudgetSelect, "change", updateApplyBrief);
+  on($("aPets"), "change", updateApplyBrief);
+  on($("aHistory"), "change", function () {
+    $("aHistoryDetailWrap").hidden = $("aHistory").value === "No evictions, clean rental history";
+    updateApplyBrief();
+  });
+  document.addEventListener("change", updateApplyBrief);
+  on($("copyApply"), "click", function () {
+    if (!validContact($("aName").value, $("aPhone").value, $("aEmail").value)) {
+      $("applyError").hidden = false;
+      return;
+    }
+    $("applyError").hidden = true;
+    var done = function () { $("applyCopyNote").hidden = false; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(applyBriefText()).then(done, done);
+    } else { done(); }
+  });
+  function guardApplyLink(e) {
+    if (!validContact($("aName").value, $("aPhone").value, $("aEmail").value)) {
+      e.preventDefault();
+      $("applyError").hidden = false;
+    } else { $("applyError").hidden = true; }
+  }
+  on($("emailApply"), "click", guardApplyLink);
+  updateApplyBrief();
+  var applyForm = $("applyForm");
+  if (applyForm) applyForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!validContact($("aName").value, $("aPhone").value, $("aEmail").value)) { $("applyError").hidden = false; return; }
+    $("applyError").hidden = true;
+    var fd = new FormData(applyForm);
+    fd.set("brief", applyBriefText());
+    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(fd).toString() })
+      .then(function () { $("applySent").hidden = false; })
+      .catch(function () { $("applySent").hidden = false; });
+  });
+  }
+
   /* Homes list */
   var HOMES = [
     { price: 479000, priceText: "$479,000", address: "13502 Sorghum Dr", cityLine: "Rosharon, TX 77583", beds: 4, baths: "3.5", sqft: "3,539 sq ft", built: "Built 2016", mls: "61220321", badge: "Active, verified Nov 14, 2026", badgeWarn: false, detail: "$1,000 bonus to the agent who brings a buyer and closes by Dec 31, 2026", credit: "Listing courtesy Cindy Kleist, LoKation Real Estate", keywords: "rosharon lakes of savannah sorghum" },
