@@ -37,6 +37,10 @@ img { max-width: 100%; height: auto; display: block; }
 .nav-inner { display: flex; flex-wrap: wrap; gap: 4px; }
 .topnav a { color: #fff; text-decoration: none; padding: 13px 16px; font-weight: 500; }
 .topnav a:hover, .topnav a.active { background: #1c1c1c; color: var(--gold); }
+.nav-drop { position: relative; }
+.nav-drop-menu { display: none; position: absolute; top: 100%; left: 0; min-width: 230px; background: var(--black); border: 1px solid var(--gold); z-index: 30; }
+.nav-drop-menu a { display: block; }
+.nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu { display: block; }
 .hero { background: var(--black); color: #fff; padding: 48px 0 56px; border-bottom: 3px solid var(--gold); }
 .hero-portrait { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin: 0 0 20px; font-family: "Playfair Display", Georgia, serif; font-style: italic; font-size: 1.6rem; font-weight: 700; color: var(--gold); }
 .hero-portrait img { width: 320px; height: 320px; object-fit: cover; border-radius: 50% 50% 12px 12px; border: 4px solid var(--gold); box-shadow: 0 0 0 3px var(--silver), 0 0 60px rgba(201,162,39,0.45), 0 16px 40px rgba(0,0,0,0.5); }
