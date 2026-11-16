@@ -2,7 +2,6 @@
   "use strict";
   var EMAIL = "info@shantekelleyrealty.com";
   var PHONE_DISPLAY = "832-272-0861";
-  var SMS = "sms:+18322720861";
   var $ = function (id) { return document.getElementById(id); };
   function on(el, ev, fn) { if (el) el.addEventListener(ev, fn); }
   function text(el, value) { if (el) el.textContent = value; }
@@ -89,7 +88,6 @@
     var body = encodeURIComponent(briefText());
     var subject = encodeURIComponent("Home search brief" + ($("fName").value.trim() ? " for " + $("fName").value.trim() : ""));
     $("emailBrief").href = "mailto:" + EMAIL + "?subject=" + subject + "&body=" + body;
-    $("textBrief").href = SMS + "?&body=" + body;
   }
 
   if ($("finderForm")) {
@@ -125,7 +123,6 @@
     } else { $("finderError").hidden = true; }
   }
   on($("emailBrief"), "click", guardBriefLink);
-  on($("textBrief"), "click", guardBriefLink);
   updateBrief();
   var finderForm = $("finderForm");
   if (finderForm) finderForm.addEventListener("submit", function (e) {
@@ -287,9 +284,6 @@
       var askBody = encodeURIComponent("Hi Shante, I would like to ask about " + h.address + ", " + h.cityLine + " at " + h.priceText + ", MLS #" + h.mls + ".");
       ask.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Question about " + h.address) + "&body=" + askBody;
       ask.textContent = "Ask Shante about this home";
-      var textBtn = document.createElement("a"); textBtn.className = "button button-light";
-      textBtn.href = SMS + "?&body=" + askBody;
-      textBtn.textContent = "Text Shante about this home";
       var bookBtn = document.createElement("a"); bookBtn.className = "button";
       bookBtn.href = "#booking";
       bookBtn.textContent = "Book Shante to see this home";
@@ -304,7 +298,7 @@
         var note = document.getElementById("bNote");
         if (note) note.value = "Showing tour for " + h.address + ", " + h.cityLine + " at " + h.priceText + ", MLS #" + h.mls + ".";
       });
-      actions.appendChild(ask); actions.appendChild(textBtn); actions.appendChild(bookBtn);
+      actions.appendChild(ask); actions.appendChild(bookBtn);
       card.appendChild(badge); card.appendChild(price); card.appendChild(title); card.appendChild(city);
       card.appendChild(facts); card.appendChild(mls); card.appendChild(detail); card.appendChild(credit); card.appendChild(avail); card.appendChild(actions);
       box.appendChild(card);
@@ -404,7 +398,6 @@
     var body = encodeURIComponent(bookingText());
     var subject = encodeURIComponent("Booking request, " + service + ", " + $("bName").value.trim());
     $("emailBooking").href = "mailto:" + EMAIL + "?subject=" + subject + "&body=" + body;
-    $("textBooking").href = SMS + "?&body=" + body;
     $("bookingSummary").hidden = false;
     $("bookingSummary").scrollIntoView({ behavior: "smooth", block: "nearest" });
     var bfd = new FormData($("bookingForm"));
@@ -480,7 +473,6 @@
     function syncAcct() {
       var body = encodeURIComponent(acctText());
       $("emailAccount").href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Create an account") + "&body=" + body;
-      $("textAccount").href = SMS + "?&body=" + body;
     }
     /* Prefill name, phone, email on the finder, booking, and contact pages from a saved account */
     var saved = readSaved();
@@ -498,7 +490,7 @@
     if (!form) return;
     ["aFirst", "aLast", "aEmail", "aPhone", "aCity", "aPrice"].forEach(function (id) { on($(id), "input", syncAcct); });
     on($("aGoal"), "change", syncAcct);
-    ["emailAccount", "textAccount"].forEach(function (id) {
+    ["emailAccount"].forEach(function (id) {
       on($(id), "click", function (e) { if (!acctValid()) { e.preventDefault(); $("accountError").hidden = false; } else { $("accountError").hidden = true; } });
     });
     form.addEventListener("submit", function (e) {
@@ -534,10 +526,9 @@
     function syncMsg() {
       var body = encodeURIComponent(msgText());
       $("emailContact").href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Message for Shante") + "&body=" + body;
-      $("textContact").href = SMS + "?&body=" + body;
     }
     ["cName", "cPhone", "cEmail", "cMsg"].forEach(function (id) { on($(id), "input", syncMsg); });
-    ["emailContact", "textContact"].forEach(function (id) {
+    ["emailContact"].forEach(function (id) {
       on($(id), "click", function (e) { if (!msgValid()) { e.preventDefault(); $("contactError").hidden = false; } else { $("contactError").hidden = true; } });
     });
     form.addEventListener("submit", function (e) {
