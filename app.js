@@ -147,7 +147,7 @@
     fd.set("_captcha", "false");
     fetch("https://formsubmit.co/ajax/info@shantekelleyrealty.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
       .then(function (r) { if (!r.ok) throw new Error("send failed"); $("briefSent").hidden = false; $("briefSent").scrollIntoView({ behavior: "smooth", block: "nearest" }); })
-      .catch(function () { $("briefSent").hidden = false; $("briefSent").scrollIntoView({ behavior: "smooth", block: "nearest" }); });
+      .catch(function () { $("sendError").hidden = false; $("sendError").scrollIntoView({ behavior: "smooth", block: "nearest" }); });
   });
   }
 
