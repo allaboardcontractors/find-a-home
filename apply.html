@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Apply | Shante Kelley, MBA, Realtor</title>
+<meta http-equiv="refresh" content="0; url=find.html">
+<title>Find a Home | Shante Kelley, MBA, Realtor</title>
 <meta name="description" content="Tell Shante Kelley what home you need. One form with everything she needs to search for you, including credit, income, and rental history.">
-<link rel="canonical" href="https://shantekelleyrealty.com/apply.html">
+<link rel="canonical" href="https://shantekelleyrealty.com/find.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Apply | Shante Kelley, MBA, Realtor">
+<meta property="og:title" content="Find a Home | Shante Kelley, MBA, Realtor">
 <meta property="og:description" content="Tell Shante Kelley what home you need. One form with everything she needs to search for you, including credit, income, and rental history.">
-<meta property="og:url" content="https://shantekelleyrealty.com/apply.html">
+<meta property="og:url" content="https://shantekelleyrealty.com/find.html">
 <meta property="og:image" content="https://shantekelleyrealty.com/assets/hero-luxury.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,141 +49,11 @@
 <section id="apply" class="section">
     <div class="wrap">
       <p class="section-label">Tell Shante what you need</p>
-      <h2>Apply for your home search</h2>
-      <p>Fill in what you can. Your search brief updates as you type. When you send it, it goes straight to Shante.</p>
-      <div class="finder-grid">
-        <form id="applyForm" name="home-search-application" method="POST" novalidate>
-          <p hidden><label>Do not fill this out: <input name="_honey"></label></p>
-          <div class="field">
-            <label for="aName">Your name</label>
-            <input id="aName" name="name" type="text" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="aPhone">Phone number</label>
-            <input id="aPhone" name="phone" type="tel" autocomplete="tel" required>
-            <p class="hint">Needed so Shante can reach you.</p>
-          </div>
-          <div class="field">
-            <label for="aEmail">Email</label>
-            <input id="aEmail" name="email" type="email" autocomplete="email" required>
-            <p class="hint">This is where homes are sent.</p>
-          </div>
-          <fieldset class="field">
-            <legend>Looking to</legend>
-            <div class="pills" id="applyGoalPills">
-              <button type="button" data-goal="Rent" class="pill active" aria-pressed="true">Rent</button>
-              <button type="button" data-goal="Buy" class="pill" aria-pressed="false">Buy</button>
-              <button type="button" data-goal="Buy with owner financing" class="pill" aria-pressed="false">Buy with owner financing</button>
-            </div>
-          </fieldset>
-          <div class="field">
-            <label for="aBudget">Budget</label>
-            <select id="aBudget" name="budget" required></select>
-          </div>
-          <div class="field">
-            <label for="aMove">Move date</label>
-            <input id="aMove" name="moveDate" type="date" required>
-          </div>
-          <fieldset class="field">
-            <legend>Bedrooms</legend>
-            <div class="pills" id="applyBedPills">
-              <button type="button" data-value="1" class="pill">1</button>
-              <button type="button" data-value="2" class="pill">2</button>
-              <button type="button" data-value="3" class="pill active" aria-pressed="true">3</button>
-              <button type="button" data-value="4" class="pill">4</button>
-              <button type="button" data-value="5+" class="pill">5+</button>
-            </div>
-          </fieldset>
-          <fieldset class="field">
-            <legend>Bathrooms</legend>
-            <div class="pills" id="applyBathPills">
-              <button type="button" data-value="1" class="pill">1</button>
-              <button type="button" data-value="2" class="pill active" aria-pressed="true">2</button>
-              <button type="button" data-value="3" class="pill">3</button>
-              <button type="button" data-value="4+" class="pill">4+</button>
-            </div>
-          </fieldset>
-          <fieldset class="field">
-            <legend>What side of town</legend>
-            <div class="checks" id="applyAreaChecks"></div>
-          </fieldset>
-          <div class="field">
-            <label for="aPets">Pets</label>
-            <select id="aPets" name="pets">
-              <option>No pets</option>
-              <option>Dog(s)</option>
-              <option>Cat(s)</option>
-              <option>Dogs and cats</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="aPetDetails">Pet details</label>
-            <input id="aPetDetails" name="petDetails" type="text" placeholder="Kind, size, and how many">
-          </div>
-          <div class="field">
-            <label for="aCredit">Credit score</label>
-            <input id="aCredit" name="creditScore" type="text" inputmode="numeric" placeholder="Your score, or about what range it is in" required>
-            <p class="hint">This helps Shante match you with homes you can qualify for.</p>
-          </div>
-          <div class="field">
-            <label for="aIncome">Monthly household income</label>
-            <input id="aIncome" name="monthlyIncome" type="text" inputmode="numeric" placeholder="Total monthly income for your household" required>
-            <p class="hint">Landlords usually look for income about 3 times the rent.</p>
-          </div>
-          <div class="field">
-            <label for="aHistory">Rental history</label>
-            <select id="aHistory" name="rentalHistory" required>
-              <option value="">Choose one</option>
-              <option>No evictions, clean rental history</option>
-              <option>Have been evicted before</option>
-              <option>Currently in an eviction or writ of possession</option>
-              <option>No rental history yet</option>
-              <option>Prefer not to say right now</option>
-            </select>
-            <p class="hint">Be honest here. Shante works with second chance renters too.</p>
-          </div>
-          <div class="field" id="aHistoryDetailWrap" hidden>
-            <label for="aHistoryDetail">Tell us a little more about your rental history</label>
-            <input id="aHistoryDetail" name="rentalHistoryDetail" type="text" placeholder="Anything Shante should know">
-          </div>
-          <fieldset class="field">
-            <legend>Must haves</legend>
-            <div class="checks" id="applyMustChecks"></div>
-          </fieldset>
-          <div class="field">
-            <label for="aNotes">Notes</label>
-            <textarea id="aNotes" name="notes" rows="4" placeholder="Anything else that matters to you"></textarea>
-          </div>
-          <p class="error" id="applyError" role="alert" hidden>Please fill in every question before you send this. Only the notes and extra details can be left blank.</p>
-          <p class="brief-actions">
-            <button class="button" id="sendApply" type="submit">Send my application to Shante</button>
-          </p>
-          <p id="applySent" class="hint" hidden>Sent. Shante has your application.</p>
-        </form>
-        <aside class="brief" aria-label="Your application brief">
-          <h3>Your application brief</h3>
-          <p class="hint">This is exactly what Shante receives.</p>
-          <dl id="applyBriefList">
-            <dt>Looking to</dt><dd id="applyBriefGoal">Rent</dd>
-            <dt>Budget</dt><dd id="applyBriefBudget">Not added yet</dd>
-            <dt>Bedrooms and baths</dt><dd id="applyBriefBeds">3 bed, 2 bath</dd>
-            <dt>Side of town</dt><dd id="applyBriefAreas">Not chosen yet</dd>
-            <dt>Move date</dt><dd id="applyBriefMove">Not chosen yet</dd>
-            <dt>Pets</dt><dd id="applyBriefPets">No pets</dd>
-            <dt>Credit score</dt><dd id="applyBriefCredit">Not added yet</dd>
-            <dt>Monthly income</dt><dd id="applyBriefIncome">Not added yet</dd>
-            <dt>Rental history</dt><dd id="applyBriefHistory">Not added yet</dd>
-            <dt>Must haves</dt><dd id="applyBriefMust">None chosen yet</dd>
-          </dl>
-          <p id="applyBriefNotes" class="brief-notes" hidden></p>
-          <p class="brief-actions">
-            <a class="button" id="emailApply" href="mailto:info@shantekelleyrealty.com?subject=Home%20search%20application">Email my application to Shante</a>
-            <button class="button button-light" id="copyApply" type="button">Copy my application</button>
-          </p>
-          <p class="hint" id="applyCopyNote" hidden>Copied. Paste it anywhere to send it.</p>
-        </aside>
-      </div>
+      <h2>Find a Home</h2>
+      <p>The application form now lives on the Find a Home page, all in one place. You will be taken there now.</p>
+      <p class="brief-actions">
+        <a class="button" href="find.html">Go to Find a Home</a>
+      </p>
     </div>
   </section>
 </main>
