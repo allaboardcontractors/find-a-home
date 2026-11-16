@@ -242,8 +242,11 @@
     $("applyError").hidden = true;
     var fd = new FormData(applyForm);
     fd.set("brief", applyBriefText());
-    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(fd).toString() })
-      .then(function () { $("applySent").hidden = false; })
+    fd.set("_subject", "New home search application");
+    fd.set("_template", "table");
+    fd.set("_captcha", "false");
+    fetch("https://formsubmit.co/ajax/info@shantekelleyrealty.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
+      .then(function (r) { if (!r.ok) throw new Error("send failed"); $("applySent").hidden = false; })
       .catch(function () { $("applySent").hidden = false; });
   });
   }

@@ -49,11 +49,10 @@
     <div class="wrap">
       <p class="section-label">Tell Shante what you need</p>
       <h2>Apply for your home search</h2>
-      <p>Fill in what you can. Your search brief updates as you type, and nothing you enter is saved anywhere. It only goes to Shante when you choose to email it or copy it.</p>
+      <p>Fill in what you can. Your search brief updates as you type. When you send it, it goes straight to Shante.</p>
       <div class="finder-grid">
-        <form id="applyForm" name="home-search-application" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-          <input type="hidden" name="form-name" value="home-search-application">
-          <p hidden><label>Do not fill this out: <input name="bot-field"></label></p>
+        <form id="applyForm" name="home-search-application" method="POST" novalidate>
+          <p hidden><label>Do not fill this out: <input name="_honey"></label></p>
           <div class="field">
             <label for="aName">Your name</label>
             <input id="aName" name="name" type="text" autocomplete="name" required>
