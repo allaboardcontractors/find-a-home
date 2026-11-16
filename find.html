@@ -55,8 +55,12 @@
           <input type="hidden" name="form-name" value="home-search-brief">
           <p hidden><label>Do not fill this out: <input name="bot-field"></label></p>
           <div class="field">
-            <label for="fName">Your name</label>
-            <input id="fName" name="name" type="text" autocomplete="name" required>
+            <label for="fFirstName">First name</label>
+            <input id="fFirstName" name="firstName" type="text" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="fLastName">Last name</label>
+            <input id="fLastName" name="lastName" type="text" autocomplete="family-name" required>
           </div>
           <div class="field">
             <label for="fPhone">Phone number</label>
@@ -240,6 +244,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=15"></script>
+<script src="app.js?v=16"></script>
 </body>
 </html>

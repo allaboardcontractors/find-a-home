@@ -54,11 +54,12 @@
       setFn(btn.getAttribute(attr));
     });
   }
+  function fullName() { return ($("fFirstName").value.trim() + " " + $("fLastName").value.trim()).trim(); }
   function briefText() {
     var areas = checkedValues("area");
     var musts = checkedValues("must");
     var lines = [];
-    lines.push("Home search brief for " + ($("fName").value.trim() || "[name not added yet]"));
+    lines.push("Home search brief for " + (fullName() || "[name not added yet]"));
     lines.push("Looking to: " + goal);
     lines.push("Budget: " + (budgetSelect.value || "Not added yet"));
     lines.push("Bedrooms: " + beds + "  Bathrooms: " + baths);
@@ -79,7 +80,9 @@
     return name.trim().length > 1 && digits.length >= 7 && /.+@.+\..+/.test(email.trim());
   }
   function validFinder() {
-    return validContact($("fName").value, $("fPhone").value, $("fEmail").value)
+    return $("fFirstName").value.trim().length > 1
+      && $("fLastName").value.trim().length > 1
+      && validContact(fullName(), $("fPhone").value, $("fEmail").value)
       && budgetSelect.value
       && $("fMove").value
       && checkedValues("area").length > 0
@@ -104,7 +107,7 @@
     $("briefNotes").hidden = !notes;
     if (notes) text($("briefNotes"), "Notes: " + notes);
     var body = encodeURIComponent(briefText());
-    var subject = encodeURIComponent("Home search brief" + ($("fName").value.trim() ? " for " + $("fName").value.trim() : ""));
+    var subject = encodeURIComponent("Home search brief" + (fullName() ? " for " + fullName() : ""));
     $("emailBrief").href = "mailto:" + EMAIL + "?subject=" + subject + "&body=" + body;
   }
 
@@ -119,7 +122,7 @@
   });
   pillGroup("bedPills", "data-value", function (v) { beds = v; updateBrief(); });
   pillGroup("bathPills", "data-value", function (v) { baths = v; updateBrief(); });
-  ["fName", "fPhone", "fEmail", "fMove", "fPetDetails", "fCredit", "fIncome", "fNotes"].forEach(function (id) { on($(id), "input", updateBrief); });
+  ["fFirstName", "fLastName", "fPhone", "fEmail", "fMove", "fPetDetails", "fCredit", "fIncome", "fNotes"].forEach(function (id) { on($(id), "input", updateBrief); });
   on(budgetSelect, "change", updateBrief);
   on($("fPets"), "change", updateBrief);
   document.addEventListener("change", updateBrief);
@@ -510,7 +513,7 @@
     /* Prefill name, phone, email on the finder, booking, and contact pages from a saved account */
     var saved = readSaved();
     if (saved) {
-      var map = { fName: saved.firstName && saved.lastName ? saved.firstName + " " + saved.lastName : "", bName: saved.firstName && saved.lastName ? saved.firstName + " " + saved.lastName : "", cName: saved.firstName && saved.lastName ? saved.firstName + " " + saved.lastName : "", fPhone: saved.phone || "", bPhone: saved.phone || "", cPhone: saved.phone || "", fEmail: saved.email || "", bEmail: saved.email || "", cEmail: saved.email || "", aFirst: saved.firstName || "", aLast: saved.lastName || "", aEmail: saved.email || "", aPhone: saved.phone || "", aCity: saved.cityZip || "", aPrice: saved.maxPrice || "" };
+      var map = { fFirstName: saved.firstName || "", fLastName: saved.lastName || "", bName: saved.firstName && saved.lastName ? saved.firstName + " " + saved.lastName : "", cName: saved.firstName && saved.lastName ? saved.firstName + " " + saved.lastName : "", fPhone: saved.phone || "", bPhone: saved.phone || "", cPhone: saved.phone || "", fEmail: saved.email || "", bEmail: saved.email || "", cEmail: saved.email || "", aFirst: saved.firstName || "", aLast: saved.lastName || "", aEmail: saved.email || "", aPhone: saved.phone || "", aCity: saved.cityZip || "", aPrice: saved.maxPrice || "" };
       Object.keys(map).forEach(function (id) { var el = $(id); if (el && map[id] && !el.value) el.value = map[id]; });
       if ($("aGoal") && saved.goal) $("aGoal").value = saved.goal;
       if (saved.goal) {
