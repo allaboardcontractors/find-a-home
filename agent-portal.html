@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Portal, Shante Kelley, Realtor</title>
+<meta name="description" content="Private agent view. Sign in with your agent code to see your clients and the homes picked for each one.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://shantekelleyrealty.com/agent-portal.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Agent Portal, Shante Kelley, Realtor">
+<meta property="og:description" content="Private agent view. Sign in with your agent code to see your clients and the homes picked for each one.">
+<meta property="og:url" content="https://shantekelleyrealty.com/agent-portal.html">
+<meta property="og:image" content="https://shantekelleyrealty.com/assets/hero-luxury.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=14">
+<style>
+.signin-hero { background: #0a0a0a; color: #fff; padding: 48px 0 56px; border-bottom: 3px solid #c9a227; }
+.signin-hero h1 { color: #c9a227; }
+.signin-hero p { color: #fff; }
+.signin-card { background: #141414; border: 1px solid #c9a227; border-radius: 12px; padding: 24px; max-width: 560px; margin-top: 24px; }
+.signin-card label { color: #fff; font-weight: 600; display: block; margin-bottom: 6px; }
+.signin-card input { background: #0a0a0a; color: #fff; border: 1px solid #c0c0c0; }
+.signin-card .hint { color: #c0c0c0; }
+.signin-error { color: #ff9d9d; font-weight: 600; }
+.signin-homes { background: #0a0a0a; color: #fff; padding: 48px 0 56px; }
+.signin-homes h2 { color: #c9a227; }
+.signin-homes p { color: #fff; }
+.signin-homes .hint { color: #c0c0c0; }
+.signin-homes .home-card { background: #141414; border-color: #c9a227; color: #fff; }
+.signin-homes .home-card .price { color: #c9a227; }
+.signin-homes .home-card h3 { color: #fff; }
+.signin-homes .badge { background: #c9a227; color: #0a0a0a; border-color: #c9a227; }
+.client-block { background: #141414; border: 1px solid #c9a227; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
+.client-block h3 { color: #c9a227; margin-top: 0; }
+.client-block .client-meta { color: #fff; }
+.client-block .client-meta strong { color: #c9a227; }
+.client-block .home-cards { margin-top: 16px; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <div>
+      <p class="site-name">Shante Kelley, MBA, Realtor, Sales Agent</p>
+      <p class="site-broker">Texas Signature Realty</p>
+      <p class="site-area">Rosharon &amp; South Houston</p>
+    </div>
+    <div class="header-contact">
+      <a href="tel:+18322720861">Call or text 832-272-0861</a>
+      <a href="mailto:info@shantekelleyrealty.com">info@shantekelleyrealty.com</a>
+      <a href="https://shantekelleyrealty.com">shantekelleyrealty.com</a>
+    </div>
+  </div>
+  <nav class="topnav" aria-label="Pages">
+    <div class="wrap nav-inner">
+      <a href="index.html">Home</a>
+      <a href="find.html">Find a Home</a>
+      <a href="apply.html">Apply</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="market.html">Market Updates</a>
+      <a href="book.html">Book a Time</a>
+      <a href="account.html">Create an Account</a>
+      <a href="contact.html">Get in Touch</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="signin-hero">
+  <div class="wrap">
+    <p class="section-label">Private agent view</p>
+    <h1>Agent Portal</h1>
+    <p>This is your private agent view. Sign in with your agent code to see your clients and the homes picked for each one.</p>
+    <div class="signin-card" id="signinCard">
+      <form id="signinForm" novalidate>
+        <div class="field">
+          <label for="sCode">Agent code</label>
+          <input id="sCode" name="code" type="text" autocomplete="off" placeholder="Your agent code" required>
+        </div>
+        <p class="signin-error" id="signinError" role="alert" hidden>That code isn't right. Please try again.</p>
+        <p class="brief-actions">
+          <button class="button" type="submit">Sign in</button>
+        </p>
+        <p class="hint">Only you can see this page. Do not share your agent code.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="signin-homes" id="homesSection" hidden>
+  <div class="wrap">
+    <p class="section-label">Your clients</p>
+    <h2 id="welcomeHeading">Your clients</h2>
+    <p class="hint">This is a read only view of the client portal. To add or remove homes, or to change a code, use the portal in the chat.</p>
+    <p class="brief-actions">
+      <a class="button" href="https://muse.ai" target="_blank" rel="noopener">Open the CRM</a>
+    </p>
+    <p class="hint">The CRM lives in Muse, so this opens Muse. Find Kelley's Properties in the chat or Library.</p>
+    <div id="clientList"></div>
+    <p class="brief-actions">
+      <button class="button button-light" id="signOut" type="button">Sign out</button>
+    </p>
+  </div>
+</section>
+</main>
+
+<footer id="contact" class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p class="footer-name">Shante Kelley, MBA, Realtor, Sales Agent, Texas Signature Realty</p>
+      <p>Certified in owner financing</p>
+      <p>Houston, Texas</p>
+    </div>
+    <div class="footer-contact">
+      <a href="tel:+18322720861">Call or text 832-272-0861</a>
+      <a href="mailto:info@shantekelleyrealty.com">Email info@shantekelleyrealty.com</a>
+      <a href="https://shantekelleyrealty.com">Web shantekelleyrealty.com</a>
+    </div>
+  </div>
+  <div class="wrap fine-print">
+    <p>This search is curated by Shante, not a live MLS feed. A true live MLS feed needs a paid IDX feed and MLS approval. Availability, price, and pet policy are confirmed with the listing side first.</p>
+    <p class="trec-links">
+      <a href="assets/iabs-shante-kelley.pdf">Texas Real Estate Commission Information About Brokerage Services</a>
+      <a href="https://www.trec.texas.gov/sites/default/files/pdf-forms/CN%201-5_0.pdf">Texas Real Estate Commission Consumer Protection Notice</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('signinForm');
+  var codeInput = document.getElementById('sCode');
+  var errorEl = document.getElementById('signinError');
+  var card = document.getElementById('signinCard');
+  var homesSection = document.getElementById('homesSection');
+  var clientList = document.getElementById('clientList');
+  var wrongCode = "That code isn't right. Please try again.";
+
+  function showError(message) { errorEl.textContent = message; errorEl.hidden = false; }
+  function hideError() { errorEl.hidden = true; }
+
+  function sha256Hex(text) {
+    var bytes = new TextEncoder().encode(text);
+    return crypto.subtle.digest('SHA-256', bytes).then(function (buffer) {
+      var view = new Uint8Array(buffer);
+      var hex = '';
+      for (var i = 0; i < view.length; i++) {
+        hex += ('0' + view[i].toString(16)).slice(-2);
+      }
+      return hex;
+    });
+  }
+
+  function money(n) { return '$' + n.toLocaleString('en-US') + '/mo'; }
+
+  function homeCard(home) {
+    var el = document.createElement('article');
+    el.className = 'home-card';
+    var price = document.createElement('p');
+    price.className = 'price';
+    price.textContent = money(home.rent);
+    el.appendChild(price);
+    var title = document.createElement('h3');
+    title.textContent = home.address;
+    el.appendChild(title);
+    if (home.city) {
+      var city = document.createElement('p');
+      city.textContent = home.city;
+      el.appendChild(city);
+    }
+    var facts = document.createElement('p');
+    facts.textContent = home.beds + ' bed, ' + home.baths + ' bath' + (home.sqft ? ', ' + home.sqft.toLocaleString('en-US') + ' sq ft' : '');
+    el.appendChild(facts);
+    if (home.badge) {
+      var badge = document.createElement('span');
+      badge.className = 'badge warn';
+      badge.textContent = home.badge;
+      el.appendChild(badge);
+    }
+    var listing = document.createElement('p');
+    listing.textContent = home.listing;
+    el.appendChild(listing);
+    if (home.agent) {
+      var agent = document.createElement('p');
+      agent.textContent = 'Listed by ' + home.agent;
+      el.appendChild(agent);
+    }
+    if (home.note) {
+      var note = document.createElement('p');
+      note.textContent = home.note;
+      el.appendChild(note);
+    }
+    var actions = document.createElement('div');
+    actions.className = 'card-actions';
+    if (home.link) {
+      var a = document.createElement('a');
+      a.className = 'button';
+      a.href = home.link;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = 'View on HAR';
+      actions.appendChild(a);
+    }
+    el.appendChild(actions);
+    return el;
+  }
+
+  function clientBlock(client) {
+    var block = document.createElement('div');
+    block.className = 'client-block';
+    var heading = document.createElement('h3');
+    heading.textContent = client.name;
+    block.appendChild(heading);
+    var meta = document.createElement('p');
+    meta.className = 'client-meta';
+    var parts = [];
+    parts.push('Email: ' + client.email);
+    parts.push('Code: ' + client.code);
+    if (client.area) { parts.push('Area: ' + client.area); }
+    if (client.budget) { parts.push('Budget: ' + client.budget); }
+    if (client.bedrooms) { parts.push(client.bedrooms + ' bed'); }
+    if (client.moveDate) { parts.push('Move: ' + client.moveDate); }
+    if (client.pets) { parts.push('Pets: ' + client.pets); }
+    if (client.phone) { parts.push('Phone: ' + client.phone); }
+    meta.textContent = parts.join('  |  ');
+    block.appendChild(meta);
+    if (client.notes) {
+      var notes = document.createElement('p');
+      notes.className = 'client-meta';
+      notes.textContent = client.notes;
+      block.appendChild(notes);
+    }
+    var count = document.createElement('p');
+    count.className = 'client-meta';
+    count.textContent = client.homes.length + (client.homes.length === 1 ? ' home' : ' homes');
+    block.appendChild(count);
+    var cards = document.createElement('div');
+    cards.className = 'home-cards';
+    client.homes.forEach(function (home) { cards.appendChild(homeCard(home)); });
+    block.appendChild(cards);
+    return block;
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    hideError();
+    var code = codeInput.value.trim();
+    if (!code) { showError(wrongCode); return; }
+    if (!window.crypto || !crypto.subtle) {
+      showError('This page needs a secure connection to sign in. Please open it from the link Shante sent you.');
+      return;
+    }
+    sha256Hex(code).then(function (hash) {
+      return fetch('agent-index.json').then(function (res) {
+        if (!res.ok) { throw new Error('index'); }
+        return res.json();
+      }).then(function (index) {
+        var file = index[hash];
+        if (!file) { showError(wrongCode); return null; }
+        return fetch(file).then(function (res) {
+          if (!res.ok) { throw new Error('data'); }
+          return res.json();
+        });
+      });
+    }).then(function (data) {
+      if (!data) { return; }
+      clientList.innerHTML = '';
+      data.clients.forEach(function (client) { clientList.appendChild(clientBlock(client)); });
+      card.hidden = true;
+      homesSection.hidden = false;
+      homesSection.scrollIntoView();
+    }).catch(function () {
+      showError('Something went wrong loading your clients. Please try again.');
+    });
+  });
+
+  document.getElementById('signOut').addEventListener('click', function () {
+    clientList.innerHTML = '';
+    homesSection.hidden = true;
+    card.hidden = false;
+    codeInput.value = '';
+    hideError();
+    codeInput.focus();
+  });
+})();
+</script>
+</body>
+</html>
