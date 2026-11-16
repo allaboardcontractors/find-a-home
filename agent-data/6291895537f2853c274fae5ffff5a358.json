@@ -1,0 +1,139 @@
+{
+  "clients": [
+    {
+      "name": "Eric Godette",
+      "email": "godette22@gmail.com",
+      "code": "1158",
+      "area": "Magnolia 77354",
+      "budget": "$1,500 to $2,000/mo",
+      "bedrooms": "3",
+      "moveDate": null,
+      "pets": null,
+      "phone": null,
+      "status": "active",
+      "notes": "Magnolia 77354, 3 bed 2 bath, single family, available now. Homes moved from the private portal setup. Update Eric's real email in the agent dashboard before sharing his code.",
+      "homes": [
+        {
+          "address": "26411 Dobbin Hufsmith Rd",
+          "city": "Magnolia TX 77354",
+          "rent": 1500,
+          "beds": 3,
+          "baths": 2,
+          "sqft": null,
+          "listing": "MLS 44933354",
+          "agent": null,
+          "badge": null,
+          "note": null,
+          "link": "https://www.har.com/homedetail/26411-dobbin-hufsmith-rd-magnolia-tx-77354/17731417"
+        },
+        {
+          "address": "485 Bluebell Maiden Ct",
+          "city": "Magnolia TX 77354",
+          "rent": 1700,
+          "beds": 3,
+          "baths": 2,
+          "sqft": null,
+          "listing": "MLS 30000861",
+          "agent": null,
+          "badge": null,
+          "note": null,
+          "link": "https://www.har.com/homedetail/485-bluebell-maiden-ct-magnolia-tx-77354/17494409"
+        },
+        {
+          "address": "41814 Buckskin Basin Ln",
+          "city": "Magnolia TX 77354",
+          "rent": 1800,
+          "beds": 3,
+          "baths": 2,
+          "sqft": null,
+          "listing": "MLS 19835264",
+          "agent": null,
+          "badge": null,
+          "note": "Needs clean rental history and 3x rent income.",
+          "link": "https://www.har.com/homedetail/41814-buckskin-basin-ln-magnolia-tx-77354/16636656?lid=11368522"
+        },
+        {
+          "address": "27642 Mesabe Dr",
+          "city": "Magnolia TX 77354",
+          "rent": 1900,
+          "beds": 3,
+          "baths": 2,
+          "sqft": null,
+          "listing": "MLS 24558706",
+          "agent": null,
+          "badge": null,
+          "note": null,
+          "link": "https://www.har.com/homedetail/27642-mesabe-dr-magnolia-tx-77354/15980870"
+        },
+        {
+          "address": "23 Valiant Ridge Trail",
+          "city": "Magnolia TX 77354",
+          "rent": 1950,
+          "beds": 3,
+          "baths": 2,
+          "sqft": null,
+          "listing": "MLS 29343570",
+          "agent": null,
+          "badge": null,
+          "note": null,
+          "link": "https://www.har.com/homedetail/23-valiant-ridge-trl-magnolia-tx-77354/16695119"
+        },
+        {
+          "address": "154 Country Crossing Cir",
+          "city": "Magnolia TX 77354",
+          "rent": 2000,
+          "beds": 3,
+          "baths": 2,
+          "sqft": null,
+          "listing": "MLS 70654080",
+          "agent": null,
+          "badge": null,
+          "note": null,
+          "link": "https://www.har.com/homedetail/154-country-crossing-cir-magnolia-tx-77354/5269284"
+        }
+      ]
+    },
+    {
+      "name": "Preview Test",
+      "email": "preview-test@example.com",
+      "code": "ZTZE75",
+      "area": "Preview",
+      "budget": "Demo, for preview only",
+      "bedrooms": "3",
+      "moveDate": null,
+      "pets": null,
+      "phone": null,
+      "status": "active",
+      "notes": "Demo test account for Shante to preview the client view. Not a real client. Do not use a real client's email for testing.",
+      "homes": [
+        {
+          "address": "SAMPLE HOME 123 Preview Lane",
+          "city": "Houston TX 77000",
+          "rent": 1500,
+          "beds": 3,
+          "baths": 2,
+          "sqft": 1500,
+          "listing": "SAMPLE",
+          "agent": null,
+          "badge": "SAMPLE",
+          "note": "SAMPLE HOME FOR PREVIEW ONLY. Not a real listing. This is what a home card looks like in the client view.",
+          "link": null
+        }
+      ]
+    },
+    {
+      "name": "Tania Cardona",
+      "email": "Cardonavalesca75@gmail.com",
+      "code": "DSGT38",
+      "area": "Rosenberg, Sugar Land",
+      "budget": null,
+      "bedrooms": "3",
+      "moveDate": "2027-01-01",
+      "pets": "dogs and cats",
+      "phone": "3462449548",
+      "status": "active",
+      "notes": "Renter, CRM 1115. Find a Home brief Nov 16, 2026: 3 bed 2 bath, Rosenberg or Sugar Land, move Jan 1 2027, dogs and cats, house or duplex only, no apartments.",
+      "homes": []
+    }
+  ]
+}
