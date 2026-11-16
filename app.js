@@ -106,9 +106,6 @@
     var notes = $("fNotes").value.trim();
     $("briefNotes").hidden = !notes;
     if (notes) text($("briefNotes"), "Notes: " + notes);
-    var body = encodeURIComponent(briefText());
-    var subject = encodeURIComponent("Home search brief" + (fullName() ? " for " + fullName() : ""));
-    $("emailBrief").href = "mailto:" + EMAIL + "?subject=" + subject + "&body=" + body;
   }
 
   if ($("finderForm")) {
@@ -137,13 +134,6 @@
       navigator.clipboard.writeText(briefText()).then(done, done);
     } else { done(); }
   });
-  function guardBriefLink(e) {
-    if (!validFinder()) {
-      e.preventDefault();
-      $("finderError").hidden = false;
-    } else { $("finderError").hidden = true; }
-  }
-  on($("emailBrief"), "click", guardBriefLink);
   updateBrief();
   var finderForm = $("finderForm");
   if (finderForm) finderForm.addEventListener("submit", function (e) {
@@ -156,8 +146,8 @@
     fd.set("_template", "table");
     fd.set("_captcha", "false");
     fetch("https://formsubmit.co/ajax/info@shantekelleyrealty.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
-      .then(function (r) { if (!r.ok) throw new Error("send failed"); $("briefSent").hidden = false; })
-      .catch(function () { $("briefSent").hidden = false; });
+      .then(function (r) { if (!r.ok) throw new Error("send failed"); $("briefSent").hidden = false; $("briefSent").scrollIntoView({ behavior: "smooth", block: "nearest" }); })
+      .catch(function () { $("briefSent").hidden = false; $("briefSent").scrollIntoView({ behavior: "smooth", block: "nearest" }); });
   });
   }
 
