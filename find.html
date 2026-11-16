@@ -78,11 +78,11 @@
           </fieldset>
           <div class="field">
             <label for="fBudget">Budget</label>
-            <select id="fBudget" name="budget"></select>
+            <select id="fBudget" name="budget" required></select>
           </div>
           <div class="field">
             <label for="fMove">Move date</label>
-            <input id="fMove" name="moveDate" type="date">
+            <input id="fMove" name="moveDate" type="date" required>
           </div>
           <fieldset class="field">
             <legend>Bedrooms</legend>
@@ -121,6 +121,28 @@
             <label for="fPetDetails">Pet details</label>
             <input id="fPetDetails" name="petDetails" type="text" placeholder="Kind, size, and how many">
           </div>
+          <div class="field">
+            <label for="fCredit">Credit score</label>
+            <input id="fCredit" name="creditScore" type="text" inputmode="numeric" placeholder="Your score, or about what range it is in" required>
+            <p class="hint">This helps Shante match you with homes you can qualify for.</p>
+          </div>
+          <div class="field">
+            <label for="fIncome">Monthly household income</label>
+            <input id="fIncome" name="monthlyIncome" type="text" inputmode="numeric" placeholder="Total monthly income for your household" required>
+            <p class="hint">Landlords usually look for income about 3 times the rent.</p>
+          </div>
+          <div class="field">
+            <label for="fHistory">Rental history</label>
+            <select id="fHistory" name="rentalHistory" required>
+              <option value="">Choose one</option>
+              <option>No evictions, clean rental history</option>
+              <option>Have been evicted before</option>
+              <option>Currently in an eviction or writ of possession</option>
+              <option>No rental history yet</option>
+              <option>Prefer not to say right now</option>
+            </select>
+            <p class="hint">Be honest here. Shante works with second chance renters too.</p>
+          </div>
           <fieldset class="field">
             <legend>Must haves</legend>
             <div class="checks" id="mustChecks"></div>
@@ -129,7 +151,7 @@
             <label for="fNotes">Notes</label>
             <textarea id="fNotes" name="notes" rows="4" placeholder="Anything else that matters to you"></textarea>
           </div>
-          <p class="error" id="finderError" role="alert" hidden>Please add your name, phone number, and a valid email. Shante needs all three before she can start your search.</p>
+          <p class="error" id="finderError" role="alert" hidden>Please fill in every question before you send this. Only the notes and extra details can be left blank.</p>
           <p class="brief-actions">
             <button class="button" id="sendBrief" type="submit">Send my search to Shante</button>
           </p>
@@ -140,11 +162,14 @@
           <p class="hint">This is exactly what Shante receives.</p>
           <dl id="briefList">
             <dt>Looking to</dt><dd id="briefGoal">Rent</dd>
-            <dt>Budget</dt><dd id="briefBudget">Not sure yet</dd>
+            <dt>Budget</dt><dd id="briefBudget">Not added yet</dd>
             <dt>Bedrooms and baths</dt><dd id="briefBeds">3 bed, 2 bath</dd>
             <dt>Areas</dt><dd id="briefAreas">Not chosen yet</dd>
             <dt>Move date</dt><dd id="briefMove">Not chosen yet</dd>
             <dt>Pets</dt><dd id="briefPets">No pets</dd>
+            <dt>Credit score</dt><dd id="briefCredit">Not added yet</dd>
+            <dt>Monthly income</dt><dd id="briefIncome">Not added yet</dd>
+            <dt>Rental history</dt><dd id="briefHistory">Not added yet</dd>
             <dt>Must haves</dt><dd id="briefMust">None chosen yet</dd>
           </dl>
           <p id="briefNotes" class="brief-notes" hidden></p>

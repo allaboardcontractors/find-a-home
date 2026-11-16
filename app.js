@@ -7,8 +7,8 @@
   function text(el, value) { if (el) el.textContent = value; }
 
   /* Finder form */
-  var RENT_BUDGETS = ["Under $1,200/mo", "$1,200 to $1,500/mo", "$1,500 to $1,800/mo", "$1,800 to $2,200/mo", "$2,200 to $2,800/mo", "$2,800+/mo", "Not sure yet"];
-  var BUY_BUDGETS = ["Under $200,000", "$200,000 to $300,000", "$300,000 to $400,000", "$400,000 to $500,000", "$500,000 to $650,000", "$650,000 to $750,000", "$750,000+", "Not sure yet"];
+  var RENT_BUDGETS = ["Under $1,200/mo", "$1,200 to $1,500/mo", "$1,500 to $1,800/mo", "$1,800 to $2,200/mo", "$2,200 to $2,800/mo", "$2,800+/mo"];
+  var BUY_BUDGETS = ["Under $200,000", "$200,000 to $300,000", "$300,000 to $400,000", "$400,000 to $500,000", "$500,000 to $650,000", "$650,000 to $750,000", "$750,000+"];
   var AREAS = ["Rosenberg", "Rosharon / Lakes of Savannah", "Pearland", "Manvel", "Alvin", "Fresno", "Missouri City", "Sugar Land", "Houston South", "Houston Southwest", "Houston other area", "Richmond", "Angleton / Lake Jackson", "Open to suggestions"];
   var MUSTS = ["Fenced yard", "Garage", "Single story", "Washer/dryer in home", "Updated kitchen", "Big backyard", "Near good schools", "Quiet street", "No HOA", "Owner financing OK", "Short commute to Houston"];
 
@@ -19,12 +19,15 @@
 
   function fillBudgets(list) {
     budgetSelect.innerHTML = "";
+    var ph = document.createElement("option");
+    ph.value = ""; ph.textContent = "Choose your budget";
+    budgetSelect.appendChild(ph);
     list.forEach(function (label) {
       var opt = document.createElement("option");
       opt.value = label; opt.textContent = label;
       budgetSelect.appendChild(opt);
     });
-    budgetSelect.value = "Not sure yet";
+    budgetSelect.value = "";
   }
   function buildChecks(containerId, items, name) {
     var box = $(containerId);
@@ -57,11 +60,14 @@
     var lines = [];
     lines.push("Home search brief for " + ($("fName").value.trim() || "[name not added yet]"));
     lines.push("Looking to: " + goal);
-    lines.push("Budget: " + budgetSelect.value);
+    lines.push("Budget: " + (budgetSelect.value || "Not added yet"));
     lines.push("Bedrooms: " + beds + "  Bathrooms: " + baths);
     lines.push("Areas: " + (areas.length ? areas.join(", ") : "Not chosen yet"));
     lines.push("Move date: " + ($("fMove").value || "Not chosen yet"));
     lines.push("Pets: " + $("fPets").value + ($("fPetDetails").value.trim() ? " (" + $("fPetDetails").value.trim() + ")" : ""));
+    lines.push("Credit score: " + ($("fCredit").value.trim() || "Not added yet"));
+    lines.push("Monthly income: " + ($("fIncome").value.trim() || "Not added yet"));
+    lines.push("Rental history: " + ($("fHistory").value || "Not added yet"));
     lines.push("Must haves: " + (musts.length ? musts.join(", ") : "None chosen yet"));
     if ($("fNotes").value.trim()) lines.push("Notes: " + $("fNotes").value.trim());
     lines.push("Phone: " + ($("fPhone").value.trim() || "[phone not added yet]"));
@@ -72,15 +78,27 @@
     var digits = phone.replace(/\D/g, "");
     return name.trim().length > 1 && digits.length >= 7 && /.+@.+\..+/.test(email.trim());
   }
+  function validFinder() {
+    return validContact($("fName").value, $("fPhone").value, $("fEmail").value)
+      && budgetSelect.value
+      && $("fMove").value
+      && checkedValues("area").length > 0
+      && $("fCredit").value.trim()
+      && $("fIncome").value.trim()
+      && $("fHistory").value;
+  }
   function updateBrief() {
     var areas = checkedValues("area");
     var musts = checkedValues("must");
     text($("briefGoal"), goal);
-    text($("briefBudget"), budgetSelect.value);
+    text($("briefBudget"), budgetSelect.value || "Not added yet");
     text($("briefBeds"), beds + " bed, " + baths + " bath");
     text($("briefAreas"), areas.length ? areas.join(", ") : "Not chosen yet");
     text($("briefMove"), $("fMove").value || "Not chosen yet");
     text($("briefPets"), $("fPets").value + ($("fPetDetails").value.trim() ? " (" + $("fPetDetails").value.trim() + ")" : ""));
+    text($("briefCredit"), $("fCredit").value.trim() || "Not added yet");
+    text($("briefIncome"), $("fIncome").value.trim() || "Not added yet");
+    text($("briefHistory"), $("fHistory").value || "Not added yet");
     text($("briefMust"), musts.length ? musts.join(", ") : "None chosen yet");
     var notes = $("fNotes").value.trim();
     $("briefNotes").hidden = !notes;
@@ -101,12 +119,12 @@
   });
   pillGroup("bedPills", "data-value", function (v) { beds = v; updateBrief(); });
   pillGroup("bathPills", "data-value", function (v) { baths = v; updateBrief(); });
-  ["fName", "fPhone", "fEmail", "fMove", "fPetDetails", "fNotes"].forEach(function (id) { on($(id), "input", updateBrief); });
+  ["fName", "fPhone", "fEmail", "fMove", "fPetDetails", "fCredit", "fIncome", "fNotes"].forEach(function (id) { on($(id), "input", updateBrief); });
   on(budgetSelect, "change", updateBrief);
   on($("fPets"), "change", updateBrief);
   document.addEventListener("change", updateBrief);
   on($("copyBrief"), "click", function () {
-    if (!validContact($("fName").value, $("fPhone").value, $("fEmail").value)) {
+    if (!validFinder()) {
       $("finderError").hidden = false;
       return;
     }
@@ -117,7 +135,7 @@
     } else { done(); }
   });
   function guardBriefLink(e) {
-    if (!validContact($("fName").value, $("fPhone").value, $("fEmail").value)) {
+    if (!validFinder()) {
       e.preventDefault();
       $("finderError").hidden = false;
     } else { $("finderError").hidden = true; }
@@ -127,7 +145,7 @@
   var finderForm = $("finderForm");
   if (finderForm) finderForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    if (!validContact($("fName").value, $("fPhone").value, $("fEmail").value)) { $("finderError").hidden = false; return; }
+    if (!validFinder()) { $("finderError").hidden = false; return; }
     $("finderError").hidden = true;
     var fd = new FormData(finderForm);
     fd.set("brief", briefText());
@@ -145,12 +163,15 @@
   var applyBudgetSelect = $("aBudget");
   function fillApplyBudgets(list) {
     applyBudgetSelect.innerHTML = "";
+    var ph = document.createElement("option");
+    ph.value = ""; ph.textContent = "Choose your budget";
+    applyBudgetSelect.appendChild(ph);
     list.forEach(function (label) {
       var opt = document.createElement("option");
       opt.value = label; opt.textContent = label;
       applyBudgetSelect.appendChild(opt);
     });
-    applyBudgetSelect.value = "Not sure yet";
+    applyBudgetSelect.value = "";
   }
   fillApplyBudgets(RENT_BUDGETS);
   buildChecks("applyAreaChecks", AREAS, "applyArea");
@@ -164,14 +185,14 @@
     var lines = [];
     lines.push("Home search application for " + ($("aName").value.trim() || "[name not added yet]"));
     lines.push("Looking to: " + applyGoal);
-    lines.push("Budget: " + applyBudgetSelect.value);
+    lines.push("Budget: " + (applyBudgetSelect.value || "Not added yet"));
     lines.push("Bedrooms: " + applyBeds + "  Bathrooms: " + applyBaths);
     lines.push("Side of town: " + (areas.length ? areas.join(", ") : "Not chosen yet"));
     lines.push("Move date: " + ($("aMove").value || "Not chosen yet"));
     lines.push("Pets: " + $("aPets").value + ($("aPetDetails").value.trim() ? " (" + $("aPetDetails").value.trim() + ")" : ""));
     lines.push("Credit score: " + ($("aCredit").value.trim() || "Not added yet"));
     lines.push("Monthly income: " + ($("aIncome").value.trim() || "Not added yet"));
-    lines.push("Rental history: " + $("aHistory").value + ($("aHistoryDetail").value.trim() ? " (" + $("aHistoryDetail").value.trim() + ")" : ""));
+    lines.push("Rental history: " + ($("aHistory").value || "Not added yet") + ($("aHistoryDetail").value.trim() ? " (" + $("aHistoryDetail").value.trim() + ")" : ""));
     lines.push("Must haves: " + (musts.length ? musts.join(", ") : "None chosen yet"));
     if ($("aNotes").value.trim()) lines.push("Notes: " + $("aNotes").value.trim());
     lines.push("Phone: " + ($("aPhone").value.trim() || "[phone not added yet]"));
@@ -182,14 +203,14 @@
     var areas = applyCheckedValues("applyArea");
     var musts = applyCheckedValues("applyMust");
     text($("applyBriefGoal"), applyGoal);
-    text($("applyBriefBudget"), applyBudgetSelect.value);
+    text($("applyBriefBudget"), applyBudgetSelect.value || "Not added yet");
     text($("applyBriefBeds"), applyBeds + " bed, " + applyBaths + " bath");
     text($("applyBriefAreas"), areas.length ? areas.join(", ") : "Not chosen yet");
     text($("applyBriefMove"), $("aMove").value || "Not chosen yet");
     text($("applyBriefPets"), $("aPets").value + ($("aPetDetails").value.trim() ? " (" + $("aPetDetails").value.trim() + ")" : ""));
     text($("applyBriefCredit"), $("aCredit").value.trim() || "Not added yet");
     text($("applyBriefIncome"), $("aIncome").value.trim() || "Not added yet");
-    text($("applyBriefHistory"), $("aHistory").value + ($("aHistoryDetail").value.trim() ? " (" + $("aHistoryDetail").value.trim() + ")" : ""));
+    text($("applyBriefHistory"), ($("aHistory").value || "Not added yet") + ($("aHistoryDetail").value.trim() ? " (" + $("aHistoryDetail").value.trim() + ")" : ""));
     text($("applyBriefMust"), musts.length ? musts.join(", ") : "None chosen yet");
     var notes = $("aNotes").value.trim();
     $("applyBriefNotes").hidden = !notes;
@@ -209,12 +230,21 @@
   on(applyBudgetSelect, "change", updateApplyBrief);
   on($("aPets"), "change", updateApplyBrief);
   on($("aHistory"), "change", function () {
-    $("aHistoryDetailWrap").hidden = $("aHistory").value === "No evictions, clean rental history";
+    $("aHistoryDetailWrap").hidden = !$("aHistory").value || $("aHistory").value === "No evictions, clean rental history";
     updateApplyBrief();
   });
   document.addEventListener("change", updateApplyBrief);
+  function validApply() {
+    return validContact($("aName").value, $("aPhone").value, $("aEmail").value)
+      && applyBudgetSelect.value
+      && $("aMove").value
+      && applyCheckedValues("applyArea").length > 0
+      && $("aCredit").value.trim()
+      && $("aIncome").value.trim()
+      && $("aHistory").value;
+  }
   on($("copyApply"), "click", function () {
-    if (!validContact($("aName").value, $("aPhone").value, $("aEmail").value)) {
+    if (!validApply()) {
       $("applyError").hidden = false;
       return;
     }
@@ -225,7 +255,7 @@
     } else { done(); }
   });
   function guardApplyLink(e) {
-    if (!validContact($("aName").value, $("aPhone").value, $("aEmail").value)) {
+    if (!validApply()) {
       e.preventDefault();
       $("applyError").hidden = false;
     } else { $("applyError").hidden = true; }
@@ -235,7 +265,7 @@
   var applyForm = $("applyForm");
   if (applyForm) applyForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    if (!validContact($("aName").value, $("aPhone").value, $("aEmail").value)) { $("applyError").hidden = false; return; }
+    if (!validApply()) { $("applyError").hidden = false; return; }
     $("applyError").hidden = true;
     var fd = new FormData(applyForm);
     fd.set("brief", applyBriefText());
