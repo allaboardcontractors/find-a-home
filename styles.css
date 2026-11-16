@@ -37,7 +37,7 @@ img { max-width: 100%; height: auto; display: block; }
 .nav-inner { display: flex; flex-wrap: wrap; gap: 4px; }
 .topnav a { color: #fff; text-decoration: none; padding: 13px 16px; font-weight: 500; }
 .topnav a:hover, .topnav a.active { background: #1c1c1c; color: var(--gold); }
-.nav-drop { position: relative; }
+.nav-drop { position: relative; display: flex; }
 .nav-drop-menu { display: none; position: absolute; top: 100%; left: 0; min-width: 230px; background: var(--black); border: 1px solid var(--gold); z-index: 30; }
 .nav-drop-menu a { display: block; }
 .nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu { display: block; }
