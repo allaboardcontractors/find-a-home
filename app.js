@@ -77,7 +77,8 @@
   }
   function validContact(name, phone, email) {
     var digits = phone.replace(/\D/g, "");
-    return name.trim().length > 1 && digits.length >= 7 && /.+@.+\..+/.test(email.trim());
+    var phoneOk = digits.length === 10 || (digits.length === 11 && digits.charAt(0) === "1");
+    return name.trim().length > 1 && phoneOk && /.+@.+\..+/.test(email.trim());
   }
   function validFinder() {
     return $("fFirstName").value.trim().length > 1
