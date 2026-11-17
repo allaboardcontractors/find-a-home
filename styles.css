@@ -28,6 +28,7 @@ img { max-width: 100%; height: auto; display: block; }
 .site-header::after { content: ""; display: block; height: 3px; background: linear-gradient(90deg, var(--gold), var(--silver), var(--gold)); }
 .header-inner { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: flex-start; padding-top: 24px; padding-bottom: 20px; }
 .site-name { font-family: "Playfair Display", Georgia, serif; font-style: italic; font-size: 2.2rem; font-weight: 700; color: var(--black); margin: 0; letter-spacing: 0.02em; }
+a.site-name { text-decoration: none; display: block; }
 .site-broker { letter-spacing: 0.12em; text-transform: uppercase; font-size: 1.15rem; font-weight: 700; margin: 4px 0 0; color: var(--gold-deep); }
 .site-area { margin: 6px 0 0; color: var(--muted); }
 .header-contact, .footer-contact { display: flex; flex-direction: column; gap: 4px; }
@@ -117,6 +118,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold); bord
 .site-footer::before { content: ""; display: block; height: 3px; background: linear-gradient(90deg, var(--gold), var(--silver), var(--gold)); margin-bottom: 24px; }
 .footer-inner { display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
 .footer-name { font-family: "Cinzel", Georgia, serif; font-size: 1.3rem; margin: 0 0 8px; color: var(--gold); }
+.site-footer a.footer-name { color: var(--gold); text-decoration: none; display: block; }
 .site-footer p { margin: 4px 0; }
 .site-footer a { color: #fff; }
 .fine-print { margin-top: 24px; border-top: 1px solid var(--silver); padding-top: 16px; font-size: 0.9rem; }
