@@ -1,0 +1,18 @@
+{
+  "firstName": "Preview Test",
+  "homes": [
+    {
+      "address": "SAMPLE HOME 123 Preview Lane",
+      "city": "",
+      "rent": 1000,
+      "beds": 3,
+      "baths": 2,
+      "sqft": null,
+      "listing": "SAMPLE",
+      "agent": null,
+      "badge": "SAMPLE",
+      "note": "Demo home for preview only. Not a real listing.",
+      "link": null
+    }
+  ]
+}

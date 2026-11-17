@@ -1,0 +1,31 @@
+{
+  "firstName": "Tania",
+  "homes": [
+    {
+      "address": "2524 Bryan Park Ln",
+      "city": "Rosenberg TX 77469",
+      "rent": 1900,
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1491,
+      "listing": "MLS 55463505",
+      "agent": null,
+      "badge": null,
+      "note": "Pets allowed. $500 pet deposit each, limit 2 pets. Needs 3x income and good rental history.",
+      "link": "https://www.har.com/homedetail/2524-bryan-park-ln-rosenberg-tx-77469/15223157"
+    },
+    {
+      "address": "313 2nd St",
+      "city": "Rosenberg TX 77471",
+      "rent": 1900,
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1390,
+      "listing": "Zillow HomeSmart",
+      "agent": "Ying Long",
+      "badge": null,
+      "note": "Built 2023.",
+      "link": "https://www.zillow.com/homedetails/313-2nd-St-Rosenberg-TX-77471/27613971_zpid/"
+    }
+  ]
+}
