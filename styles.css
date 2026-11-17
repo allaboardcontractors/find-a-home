@@ -97,6 +97,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold); bord
 .home-card h3 { margin: 0; font-size: 1.25rem; }
 .home-card p { margin: 0; }
 .badge { display: inline-block; background: var(--silver-soft); color: var(--black); border: 1px solid var(--gold); border-radius: 999px; padding: 4px 12px; font-size: 0.85rem; font-weight: 600; width: fit-content; }
+a.badge { text-decoration: none; cursor: pointer; background: var(--gold); }
 .badge.warn { background: var(--gold); color: var(--black); }
 .home-card .card-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 12px; }
 .home-card .card-actions .button { text-align: center; }

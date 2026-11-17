@@ -295,9 +295,12 @@
       shown++;
       var card = document.createElement("article");
       card.className = "home-card";
-      var badge = document.createElement("span");
-      badge.className = "badge" + (h.badgeWarn ? " warn" : "");
-      badge.textContent = h.badge;
+      var harLink = document.createElement("a");
+      harLink.className = "badge";
+      harLink.href = "https://www.har.com/search/dosearch?streetaddress=" + encodeURIComponent(h.mls);
+      harLink.target = "_blank";
+      harLink.rel = "noopener";
+      harLink.textContent = "View on HAR";
       var price = document.createElement("p"); price.className = "price"; price.textContent = h.priceText;
       var title = document.createElement("h3"); title.textContent = h.address;
       var city = document.createElement("p"); city.textContent = h.cityLine;
@@ -326,7 +329,7 @@
         if (note) note.value = "Showing tour for " + h.address + ", " + h.cityLine + " at " + h.priceText + ", MLS #" + h.mls + ".";
       });
       actions.appendChild(ask); actions.appendChild(bookBtn);
-      card.appendChild(badge); card.appendChild(price); card.appendChild(title); card.appendChild(city);
+      card.appendChild(harLink); card.appendChild(price); card.appendChild(title); card.appendChild(city);
       card.appendChild(facts); card.appendChild(mls); card.appendChild(detail); card.appendChild(credit); card.appendChild(avail); card.appendChild(actions);
       box.appendChild(card);
     });
