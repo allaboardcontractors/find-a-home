@@ -144,7 +144,7 @@
     var fd = new FormData(finderForm);
     fd.set("brief", briefText());
     fd.set("_subject", "New home search application");
-    fd.set("_template", "table");
+    fd.set("_template", "basic");
     fd.set("_captcha", "false");
     fd.set("_cc", "shantekelley75@gmail.com");
     fetch("https://formsubmit.co/ajax/info@shantekelleyrealty.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
@@ -268,7 +268,7 @@
     var fd = new FormData(applyForm);
     fd.set("brief", applyBriefText());
     fd.set("_subject", "New home search application");
-    fd.set("_template", "table");
+    fd.set("_template", "basic");
     fd.set("_captcha", "false");
     fd.set("_cc", "shantekelley75@gmail.com");
     fetch("https://formsubmit.co/ajax/info@shantekelleyrealty.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
