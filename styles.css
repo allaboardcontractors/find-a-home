@@ -54,6 +54,7 @@ a.site-name { text-decoration: none; display: block; }
 .hero-photo img { border-radius: 12px; border: 1px solid var(--silver); box-shadow: 0 0 0 1px var(--gold), 0 12px 30px rgba(0,0,0,0.12); }
 .button { display: inline-block; background: var(--gold); color: var(--black); border: 1px solid var(--gold); border-radius: 8px; padding: 12px 20px; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
 .button:hover { background: var(--gold-deep); color: #fff; }
+.button:disabled { opacity: 0.55; cursor: not-allowed; }
 .button-light { background: var(--black); color: #fff; border-color: var(--black); }
 .button-light:hover { background: #1c1c1c; color: var(--gold); border-color: var(--gold); }
 .section { padding: 56px 0; scroll-margin-top: 70px; }
