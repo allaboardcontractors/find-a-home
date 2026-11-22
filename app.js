@@ -149,8 +149,7 @@
     fd.set("_subject", "New home search application");
     fd.set("_template", "basic");
     fd.set("_captcha", "false");
-    fd.set("_cc", "shantekelley75@gmail.com");
-    fetch("https://formsubmit.co/ajax/info@shantekelleyrealty.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
+    fetch("https://formsubmit.co/ajax/shantekelley75@gmail.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
       .then(function (r) { if (!r.ok) throw new Error("send failed"); if (sendBtn) { sendBtn.textContent = "Sent"; } $("briefSent").hidden = false; $("briefSent").scrollIntoView({ behavior: "smooth", block: "nearest" }); })
       .catch(function () { if (sendBtn) { sendBtn.disabled = false; sendBtn.textContent = "Send my search to Shante"; } $("sendError").hidden = false; $("sendError").scrollIntoView({ behavior: "smooth", block: "nearest" }); });
   });
@@ -273,8 +272,7 @@
     fd.set("_subject", "New home search application");
     fd.set("_template", "basic");
     fd.set("_captcha", "false");
-    fd.set("_cc", "shantekelley75@gmail.com");
-    fetch("https://formsubmit.co/ajax/info@shantekelleyrealty.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
+    fetch("https://formsubmit.co/ajax/shantekelley75@gmail.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
       .then(function (r) { if (!r.ok) throw new Error("send failed"); $("applySent").hidden = false; })
       .catch(function () { $("applySent").hidden = false; });
   });
