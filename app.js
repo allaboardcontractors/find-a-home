@@ -458,6 +458,14 @@
     bfd.set("day", dayText);
     bfd.set("time", pickedTime + " Central");
     fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(bfd).toString() }).catch(function () {});
+    /* Also send the request to Shante by email through FormSubmit, so a watch
+       can put it on her calendar. The client still gets the mailto link above. */
+    var sfd = new FormData($("bookingForm"));
+    sfd.set("service", service);
+    sfd.set("day", dayText);
+    sfd.set("time", pickedTime + " Central");
+    sfd.set("_subject", "Booking request, " + service + ", " + $("bName").value.trim());
+    fetch("https://formsubmit.co/ajax/shantekelley75@gmail.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(sfd)) }).catch(function () {});
   });
 
   /* Smooth in page navigation and hash aliases */
