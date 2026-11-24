@@ -139,7 +139,7 @@
   var finderForm = $("finderForm");
   if (finderForm) finderForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    var sendBtn = $("sendBtn");
+    var sendBtn = $("sendBrief");
     if (sendBtn && sendBtn.disabled) { return; }
     if (!validFinder()) { $("finderError").hidden = false; return; }
     $("finderError").hidden = true;
@@ -345,10 +345,30 @@
 
   /* Booking */
   var TIMES = ["9:00 AM", "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"];
+  var TIME_HOURS = {"9:00 AM": 9, "10:00 AM": 10, "11:00 AM": 11, "1:00 PM": 13, "2:00 PM": 14, "3:00 PM": 15, "4:00 PM": 16};
   var service = "Home search call";
   var bookable = [];
   var viewYear, viewMonth;
   var pickedDay = null, pickedTime = null;
+  /* Busy times synced from Shante's calendar (busy-times.json holds start
+     and end times only, no titles or details). A time slot that overlaps a
+     busy block is shown greyed out and cannot be picked. If the file cannot
+     be fetched, every slot stays open so booking never breaks. */
+  var busyBlocks = [];
+  function loadBusy() {
+    fetch("busy-times.json").then(function (r) { return r.json(); }).then(function (doc) {
+      busyBlocks = (doc.busy || []).map(function (b) { return { start: new Date(b.start), end: new Date(b.end) }; });
+      renderCalendar(); renderTimes();
+    }).catch(function () { busyBlocks = []; });
+  }
+  function slotBusy(d, hour) {
+    var s = new Date(d); s.setHours(hour, 0, 0, 0);
+    var e = new Date(d); e.setHours(hour + 1, 0, 0, 0);
+    return busyBlocks.some(function (b) { return s < b.end && b.start < e; });
+  }
+  function hasFreeSlot(d) {
+    return TIMES.some(function (t) { return !slotBusy(d, TIME_HOURS[t]); });
+  }
   function startOfDay(d) { var x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
   function buildBookable() {
     bookable = [];
@@ -381,7 +401,7 @@
         var d = new Date(viewYear, viewMonth, dayNum);
         var btn = document.createElement("button");
         btn.type = "button"; btn.textContent = String(dayNum);
-        btn.disabled = !isBookable(d);
+        btn.disabled = !isBookable(d) || !hasFreeSlot(d);
         if (sameDay(d, pickedDay)) btn.classList.add("selected");
         btn.addEventListener("click", function () {
           pickedDay = d; pickedTime = null;
@@ -397,7 +417,7 @@
       var btn = document.createElement("button");
       btn.type = "button"; btn.className = "pill";
       btn.textContent = t;
-      btn.disabled = !pickedDay;
+      btn.disabled = !pickedDay || slotBusy(pickedDay, TIME_HOURS[t]);
       if (pickedTime === t) btn.classList.add("active");
       btn.addEventListener("click", function () {
         pickedTime = t; renderTimes();
@@ -408,7 +428,7 @@
   pillGroup("servicePills", "data-service", function (v) { service = v; });
   on($("calPrev"), "click", function () { viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCalendar(); });
   on($("calNext"), "click", function () { viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCalendar(); });
-  if ($("bookingForm")) { buildBookable(); renderCalendar(); renderTimes(); }
+  if ($("bookingForm")) { buildBookable(); renderCalendar(); renderTimes(); loadBusy(); }
 
   function bookingText() {
     var dayText = pickedDay ? pickedDay.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" }) : "";
