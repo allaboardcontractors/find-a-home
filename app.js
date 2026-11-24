@@ -149,8 +149,9 @@
     fd.set("_subject", "New home search application");
     fd.set("_template", "basic");
     fd.set("_captcha", "false");
+    fd.set("_autoresponse", "Thank you. Your home search was sent to Shante Kelley. She will set up your private portal and be in touch at the email you gave. If you do not hear from her within one business day, call or text 832 272 0861.");
     fetch("https://formsubmit.co/ajax/shantekelley75@gmail.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.fromEntries(fd)) })
-      .then(function (r) { if (!r.ok) throw new Error("send failed"); if (sendBtn) { sendBtn.textContent = "Sent"; } $("briefSent").hidden = false; $("briefSent").scrollIntoView({ behavior: "smooth", block: "nearest" }); })
+      .then(function (r) { if (!r.ok) throw new Error("send failed"); if (sendBtn) { sendBtn.textContent = "Sent"; } var firstName = $("fFirstName").value.trim(); var panelTitle = $("briefSentTitle"); if (panelTitle && firstName) { panelTitle.textContent = "Thank you, " + firstName + ". Your search was sent."; } var panel = $("briefSent"); if (panel) { panel.hidden = false; panel.scrollIntoView({ behavior: "smooth", block: "center" }); } Array.prototype.forEach.call(finderForm.elements, function (el) { el.disabled = true; }); })
       .catch(function () { if (sendBtn) { sendBtn.disabled = false; sendBtn.textContent = "Send my search to Shante"; } $("sendError").hidden = false; $("sendError").scrollIntoView({ behavior: "smooth", block: "nearest" }); });
   });
   }

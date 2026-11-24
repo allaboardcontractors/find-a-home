@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=16">
+<link rel="stylesheet" href="styles.css?v=17">
 <link rel="apple-touch-icon" href="client-page-icon-180.png">
 <link rel="icon" type="image/png" href="client-page-icon-180.png">
 </head>
@@ -169,7 +169,11 @@
           <p class="brief-actions">
             <button class="button" id="sendBrief" type="submit">Send my search to Shante</button>
           </p>
-          <p id="briefSent" class="hint" hidden>Sent. Shante has your search, and your account details are saved with it.</p>
+          <div id="briefSent" class="sent-panel" hidden>
+            <h3 id="briefSentTitle">Thank you. Your search was sent.</h3>
+            <p>Shante has your search. She will set up your private portal and be in touch at the email you gave.</p>
+            <p>If you do not hear from her within one business day, call or text 832 272 0861.</p>
+          </div>
           <p class="error" id="sendError" role="alert" hidden>Something went wrong sending this. Please try again, or email Shante at info@shantekelleyrealty.com.</p>
         </form>
         <aside class="brief" aria-label="Your search brief">
@@ -220,6 +224,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=19"></script>
+<script src="app.js?v=20"></script>
 </body>
 </html>
