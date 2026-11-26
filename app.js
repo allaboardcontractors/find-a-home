@@ -68,7 +68,7 @@
     lines.push("Pets: " + $("fPets").value + ($("fPetDetails").value.trim() ? " (" + $("fPetDetails").value.trim() + ")" : ""));
     lines.push("Credit score: " + ($("fCredit").value.trim() || "Not added yet"));
     lines.push("Monthly income: " + ($("fIncome").value.trim() || "Not added yet"));
-    lines.push("Rental history: " + ($("fHistory").value || "Not added yet"));
+    lines.push("Rental history: " + ($("fHistory").value || "Not added yet") + evictionYearSuffix());
     lines.push("Must haves: " + (musts.length ? musts.join(", ") : "None chosen yet"));
     if ($("fNotes").value.trim()) lines.push("Notes: " + $("fNotes").value.trim());
     lines.push("Phone: " + ($("fPhone").value.trim() || "[phone not added yet]"));
@@ -80,6 +80,10 @@
     var phoneOk = digits.length === 10 || (digits.length === 11 && digits.charAt(0) === "1");
     return name.trim().length > 1 && phoneOk && /.+@.+\..+/.test(email.trim());
   }
+  function evictionYearSuffix() {
+    var y = $("fEvictionYear") ? $("fEvictionYear").value.trim() : "";
+    return ($("fHistory").value === "Have been evicted before" && y) ? " (evicted " + y + ")" : "";
+  }
   function validFinder() {
     return $("fFirstName").value.trim().length > 1
       && $("fLastName").value.trim().length > 1
@@ -89,7 +93,8 @@
       && checkedValues("area").length > 0
       && $("fCredit").value.trim()
       && $("fIncome").value.trim()
-      && $("fHistory").value;
+      && $("fHistory").value
+      && ($("fHistory").value !== "Have been evicted before" || $("fEvictionYear").value.trim());
   }
   function updateBrief() {
     var areas = checkedValues("area");
@@ -102,7 +107,9 @@
     text($("briefPets"), $("fPets").value + ($("fPetDetails").value.trim() ? " (" + $("fPetDetails").value.trim() + ")" : ""));
     text($("briefCredit"), $("fCredit").value.trim() || "Not added yet");
     text($("briefIncome"), $("fIncome").value.trim() || "Not added yet");
-    text($("briefHistory"), $("fHistory").value || "Not added yet");
+    text($("briefHistory"), ($("fHistory").value || "Not added yet") + evictionYearSuffix());
+    var evWrap = $("fEvictionYearWrap");
+    if (evWrap) evWrap.hidden = $("fHistory").value !== "Have been evicted before";
     text($("briefMust"), musts.length ? musts.join(", ") : "None chosen yet");
     var notes = $("fNotes").value.trim();
     $("briefNotes").hidden = !notes;
@@ -120,7 +127,7 @@
   });
   pillGroup("bedPills", "data-value", function (v) { beds = v; updateBrief(); });
   pillGroup("bathPills", "data-value", function (v) { baths = v; updateBrief(); });
-  ["fFirstName", "fLastName", "fPhone", "fEmail", "fMove", "fPetDetails", "fCredit", "fIncome", "fNotes"].forEach(function (id) { on($(id), "input", updateBrief); });
+  ["fFirstName", "fLastName", "fPhone", "fEmail", "fMove", "fPetDetails", "fCredit", "fIncome", "fNotes", "fEvictionYear"].forEach(function (id) { on($(id), "input", updateBrief); });
   on(budgetSelect, "change", updateBrief);
   on($("fPets"), "change", updateBrief);
   document.addEventListener("change", updateBrief);
