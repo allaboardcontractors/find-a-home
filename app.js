@@ -63,6 +63,10 @@
     lines.push("Looking to: " + goal);
     lines.push("Budget: " + (budgetSelect.value || "Not added yet"));
     lines.push("Bedrooms: " + beds + "  Bathrooms: " + baths);
+    var land = landAcresVal();
+    if (land) lines.push("Land: at least " + land + " acres");
+    var sqft = houseSqftVal();
+    if (sqft) lines.push("House: at least " + commaNum(sqft) + " sq ft");
     lines.push("Areas: " + (areas.length ? areas.join(", ") : "Not chosen yet"));
     lines.push("Move date: " + ($("fMove").value || "Not chosen yet"));
     lines.push("Pets: " + $("fPets").value + ($("fPetDetails").value.trim() ? " (" + $("fPetDetails").value.trim() + ")" : ""));
@@ -84,6 +88,13 @@
     var y = $("fEvictionYear") ? $("fEvictionYear").value.trim() : "";
     return ($("fHistory").value === "Have been evicted before" && y) ? " (evicted " + y + ")" : "";
   }
+  function landAcresVal() { return $("fLandAcres") ? $("fLandAcres").value.trim() : ""; }
+  function houseSqftVal() { return $("fHouseSqft") ? $("fHouseSqft").value.trim() : ""; }
+  function commaNum(v) {
+    var d = String(v).replace(/[^\d]/g, "");
+    if (!d) return v;
+    return d.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   function validFinder() {
     return $("fFirstName").value.trim().length > 1
       && $("fLastName").value.trim().length > 1
@@ -102,6 +113,8 @@
     text($("briefGoal"), goal);
     text($("briefBudget"), budgetSelect.value || "Not added yet");
     text($("briefBeds"), beds + " bed, " + baths + " bath");
+    text($("briefLand"), landAcresVal() ? "At least " + landAcresVal() + " acres" : "Not added yet");
+    text($("briefHouse"), houseSqftVal() ? "At least " + commaNum(houseSqftVal()) + " sq ft" : "Not added yet");
     text($("briefAreas"), areas.length ? areas.join(", ") : "Not chosen yet");
     text($("briefMove"), $("fMove").value || "Not chosen yet");
     text($("briefPets"), $("fPets").value + ($("fPetDetails").value.trim() ? " (" + $("fPetDetails").value.trim() + ")" : ""));
@@ -127,7 +140,7 @@
   });
   pillGroup("bedPills", "data-value", function (v) { beds = v; updateBrief(); });
   pillGroup("bathPills", "data-value", function (v) { baths = v; updateBrief(); });
-  ["fFirstName", "fLastName", "fPhone", "fEmail", "fMove", "fPetDetails", "fCredit", "fIncome", "fNotes", "fEvictionYear"].forEach(function (id) { on($(id), "input", updateBrief); });
+  ["fFirstName", "fLastName", "fPhone", "fEmail", "fMove", "fPetDetails", "fCredit", "fIncome", "fNotes", "fEvictionYear", "fLandAcres", "fHouseSqft"].forEach(function (id) { on($(id), "input", updateBrief); });
   on(budgetSelect, "change", updateBrief);
   on($("fPets"), "change", updateBrief);
   document.addEventListener("change", updateBrief);
