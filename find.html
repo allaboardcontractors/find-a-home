@@ -123,6 +123,16 @@
               <button type="button" data-value="4+" class="pill">4+</button>
             </div>
           </fieldset>
+          <div class="field">
+            <label for="fLandAcres">Minimum land size (acres)</label>
+            <input id="fLandAcres" name="landAcres" type="text" inputmode="decimal" placeholder="Example: 3">
+            <p class="hint">Only if you want a minimum amount of land.</p>
+          </div>
+          <div class="field">
+            <label for="fHouseSqft">Minimum house size (sq ft)</label>
+            <input id="fHouseSqft" name="houseSqft" type="text" inputmode="numeric" placeholder="Example: 2000">
+            <p class="hint">Only if you want a minimum house size.</p>
+          </div>
           <fieldset class="field">
             <legend>Areas</legend>
             <div class="checks" id="areaChecks"></div>
@@ -195,6 +205,8 @@
             <dt>Looking to</dt><dd id="briefGoal">Rent</dd>
             <dt>Budget</dt><dd id="briefBudget">Not added yet</dd>
             <dt>Bedrooms and baths</dt><dd id="briefBeds">3 bed, 2 bath</dd>
+            <dt>Land size</dt><dd id="briefLand">Not added yet</dd>
+            <dt>House size</dt><dd id="briefHouse">Not added yet</dd>
             <dt>Areas</dt><dd id="briefAreas">Not chosen yet</dd>
             <dt>Move date</dt><dd id="briefMove">Not chosen yet</dd>
             <dt>Pets</dt><dd id="briefPets">No pets</dd>
