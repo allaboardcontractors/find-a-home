@@ -396,8 +396,7 @@
     var d = startOfDay(new Date());
     d.setDate(d.getDate() + 1);
     while (bookable.length < 12) {
-      var day = d.getDay();
-      if (day !== 0) bookable.push(startOfDay(d));
+      bookable.push(startOfDay(d));
       d.setDate(d.getDate() + 1);
     }
     viewYear = bookable[0].getFullYear(); viewMonth = bookable[0].getMonth();
