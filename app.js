@@ -383,6 +383,7 @@
     }).catch(function () { busyBlocks = []; });
   }
   function slotBusy(d, hour) {
+    if (d.getDay() === 0 && hour < 14) return true;
     var s = new Date(d); s.setHours(hour, 0, 0, 0);
     var e = new Date(d); e.setHours(hour + 1, 0, 0, 0);
     return busyBlocks.some(function (b) { return s < b.end && b.start < e; });
