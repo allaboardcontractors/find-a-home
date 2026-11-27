@@ -365,8 +365,27 @@
   }
 
   /* Booking */
-  var TIMES = ["9:00 AM", "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"];
-  var TIME_HOURS = {"9:00 AM": 9, "10:00 AM": 10, "11:00 AM": 11, "1:00 PM": 13, "2:00 PM": 14, "3:00 PM": 15, "4:00 PM": 16};
+  var TIMES = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"];
+  var TIME_HOURS = {"9:00 AM": 9, "10:00 AM": 10, "11:00 AM": 11, "12:00 PM": 12, "1:00 PM": 13, "2:00 PM": 14, "3:00 PM": 15, "4:00 PM": 16};
+  /* Hours by day. Weekdays offer 11 AM to 1 PM and 4 to 5 PM, starting
+     Monday Nov 30. During the Christmas break, Dec 19 2026 through
+     Jan 4 2027, weekdays offer 10 AM to 5 PM. Sundays offer 2 to 5 PM
+     only. Saturdays keep the seven slots they always had. */
+  var WEEKDAY_TIMES = ["11:00 AM", "12:00 PM", "4:00 PM"];
+  var CHRISTMAS_TIMES = ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"];
+  var SUNDAY_TIMES = ["2:00 PM", "3:00 PM", "4:00 PM"];
+  var SATURDAY_TIMES = ["9:00 AM", "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"];
+  function daySlots(d) {
+    if (!d) return TIMES;
+    var day = d.getDay();
+    if (day === 0) return SUNDAY_TIMES;
+    if (day === 6) return SATURDAY_TIMES;
+    var date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    var christmasStart = new Date(2026, 11, 19);
+    var christmasEnd = new Date(2027, 0, 4);
+    if (date >= christmasStart && date <= christmasEnd) return CHRISTMAS_TIMES;
+    return WEEKDAY_TIMES;
+  }
   var service = "Home search call";
   var bookable = [];
   var viewYear, viewMonth;
@@ -389,7 +408,7 @@
     return busyBlocks.some(function (b) { return s < b.end && b.start < e; });
   }
   function hasFreeSlot(d) {
-    return TIMES.some(function (t) { return !slotBusy(d, TIME_HOURS[t]); });
+    return daySlots(d).some(function (t) { return !slotBusy(d, TIME_HOURS[t]); });
   }
   function startOfDay(d) { var x = new Date(d); x.setHours(0, 0, 0, 0); return x; }
   function buildBookable() {
@@ -434,7 +453,7 @@
   }
   function renderTimes() {
     var box = $("timePills"); box.innerHTML = "";
-    TIMES.forEach(function (t) {
+    daySlots(pickedDay).forEach(function (t) {
       var btn = document.createElement("button");
       btn.type = "button"; btn.className = "pill";
       btn.textContent = t;
